@@ -310,7 +310,7 @@ php -S 127.0.0.1:3333
 - 📧 Email: [your-email@example.com](mailto:your-email@example.com)
 - 🐛 Issues: [GitHub Issues](https://github.com/yourusername/camera-phishing-tool/issues)
 - 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/camera-phishing-tool/discussions)
-- 👤 GitHub: [@yourusername](https://github.com/yourusername)
+- 👤 GitHub: [@ERRORoX](https://github.com/ERRORoX)
 
 ---
 
