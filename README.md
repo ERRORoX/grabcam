@@ -67,8 +67,8 @@
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/yourusername/camera-phishing-tool.git
-cd camera-phishing-tool
+git clone https://github.com/ERRORoX/grabcam.git
+cd grabcam
 
 # Сделать скрипт исполняемым
 chmod +x grabcam.sh
