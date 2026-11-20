@@ -1,82 +1,20 @@
-# 🔒 Политика безопасности
+# Security policy — GrabCam v2.0
 
-## 📋 Поддерживаемые версии
+GrabCam v2.0 is a consent-based camera demonstration.
 
-Мы обеспечиваем безопасность следующих версий:
+## Data handling
+- Camera access starts only after the visitor reads the notice, checks both consent boxes, presses the start button, and grants the browser permission.
+- The page visibly displays the active camera preview.
+- Periodic capture and upload are described before consent and can be stopped at any time.
+- No passwords, account credentials, gallery contents, or background location data are collected.
+- Legacy IP and location collection endpoints return HTTP 410.
 
-| Версия | Поддерживается          |
-| ------ | ----------------------- |
-| 1.1.x  | ✅ Да                    |
-| 1.0.x  | ⚠️ Критические обновления |
+## Deployment
+- Use HTTPS for remote camera access.
+- Do not expose the `Photo/` directory as a public static directory. Configure the web server to deny direct access or store uploads outside the document root.
+- Add administrator authentication before creating any photo browsing interface.
+- Apply upload rate limits, retention limits, backups, and access logging.
+- Keep the server bound to localhost for local demonstrations unless a properly secured HTTPS deployment is configured.
 
-## 🐛 Сообщение об уязвимости
-
-Если вы обнаружили уязвимость безопасности, **пожалуйста, не создавайте публичный Issue**.
-
-### Как сообщить
-
-1. **Отправьте email** на: [security@example.com](mailto:security@example.com)
-2. **Включите:**
-   - Описание уязвимости
-   - Шаги для воспроизведения
-   - Возможное влияние
-   - Предложения по исправлению (если есть)
-
-### Что ожидать
-
-- ✅ Подтверждение получения в течение 48 часов
-- ✅ Обновление статуса каждые 7 дней
-- ✅ Уведомление о публикации исправления
-
-## 🔍 Типы уязвимостей
-
-### Критические
-- Удаленное выполнение кода (RCE)
-- SQL инъекции
-- Неавторизованный доступ к данным
-
-### Высокие
-- Межсайтовый скриптинг (XSS)
-- Небезопасная десериализация
-- Недостаточная аутентификация
-
-### Средние
-- Утечки информации
-- Недостаточная валидация входных данных
-
-## ✅ Безопасные практики
-
-### Для пользователей
-
-1. **Используйте только на своих устройствах**
-2. **Получайте письменное разрешение** перед использованием
-3. **Не храните конфиденциальные данные** в репозитории
-4. **Регулярно обновляйте** скрипт
-
-### Для разработчиков
-
-1. **Никогда не коммитьте** чувствительные данные
-2. **Используйте `.gitignore`** для исключения файлов
-3. **Проверяйте входные данные** перед обработкой
-4. **Используйте HTTPS** для всех соединений
-
-## 🛡️ Защита от этого инструмента
-
-### Для пользователей устройств
-
-1. **Блокируйте доступ к камере** в настройках браузера
-2. **Не предоставляйте доступ** незнакомым сайтам
-3. **Проверяйте URL** перед разрешением доступа
-4. **Используйте расширения** для блокировки трекинга
-
-### Технические меры
-
-- Используйте VPN для скрытия IP
-- Отключите JavaScript для подозрительных сайтов
-- Используйте режим инкогнито
-- Регулярно очищайте cookies и кэш
-
----
-
-**Спасибо за помощь в обеспечении безопасности! 🙏**
-
+## Reporting
+Report security issues privately to the repository maintainer. Do not upload real people's images or personal data into public issues.
