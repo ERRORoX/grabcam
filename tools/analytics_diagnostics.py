@@ -49,6 +49,7 @@ def record_server_error(endpoint: str | None, status_code: int) -> None:
     """Store only an endpoint name and HTTP status; never store request data."""
     safe_endpoint = (endpoint or "unknown").split(".", 1)[0][:80]
     occurred_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    initialize()
     with _LOCK, _connect() as conn:
         conn.execute(
             "INSERT INTO server_errors(occurred_at, endpoint, status_code) "
@@ -64,6 +65,7 @@ def record_server_error(endpoint: str | None, status_code: int) -> None:
 
 def summary() -> dict[str, Any]:
     now = time.time()
+    initialize()
     with _LOCK, _connect() as conn:
         total = conn.execute("SELECT COUNT(*) FROM server_errors").fetchone()[0]
         last_24h = conn.execute(
@@ -109,5 +111,3 @@ def summary() -> dict[str, Any]:
         },
     }
 
-
-initialize()
