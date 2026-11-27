@@ -21,9 +21,37 @@ sys.path.insert(0, os.path.join(_PROJECT_ROOT, "backend"))
 
 from flask import Flask, request, jsonify, send_from_directory, send_file
 from backend.tools.tool_grabcam import ToolGrabcam
+from tools.analytics_diagnostics import record_server_error, summary as analytics_summary
 
 app = Flask(__name__, static_folder=_STANDALONE_DIR, static_url_path="")
 tool = ToolGrabcam()
+
+
+@app.after_request
+def _record_server_diagnostics(response):
+    # Operational failures only: never record visitor IPs, payloads, credentials,
+    # media, location data, query strings, or request headers.
+    if response.status_code >= 500:
+        try:
+            record_server_error(request.endpoint, response.status_code)
+        except Exception:
+            pass
+    return response
+
+
+@app.route("/api/analytics/diagnostics", methods=["GET"])
+def api_analytics_diagnostics():
+    # Diagnostics are restricted to the local machine.
+    if request.remote_addr not in ("127.0.0.1", "::1"):
+        return jsonify({"error": "Доступ разрешён только с этого компьютера."}), 403
+    origin = request.headers.get("Origin")
+    if origin and not (
+        origin.startswith("http://127.0.0.1:")
+        or origin.startswith("http://localhost:")
+        or origin.startswith("http://[::1]:")
+    ):
+        return jsonify({"error": "Недопустимый источник запроса."}), 403
+    return jsonify(analytics_summary())
 
 _GRABCAM_PHOTO_DIR = os.path.join(_GRABCAM_DIR, "Photo")
 _GRABCAM_FORM_FILE = os.path.join(_GRABCAM_DIR, "form_captures.json")
