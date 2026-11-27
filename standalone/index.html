@@ -15,6 +15,23 @@
     <h1 class="gc-standalone-title">Grabcam</h1>
     <span class="gc-standalone-desc">Автономный режим</span>
   </header>
+  <section class="gc-system-health" aria-label="Системная статистика">
+    <div class="gc-system-health-head">
+      <div><h2 class="gc-system-health-title">Состояние сервера</h2><div class="gc-system-health-note">Локальная диагностика приложения · без сбора данных посетителей</div></div>
+      <button class="gc-system-health-refresh" id="gc-health-refresh" type="button">Обновить</button>
+    </div>
+    <div class="gc-system-health-grid" aria-live="polite">
+      <div class="gc-system-health-metric"><span class="gc-system-health-label">Сервер</span><span class="gc-system-health-value gc-system-health-state" id="gc-health-state">Проверка…</span></div>
+      <div class="gc-system-health-metric"><span class="gc-system-health-label">Время работы</span><span class="gc-system-health-value" id="gc-health-uptime">—</span></div>
+      <div class="gc-system-health-metric"><span class="gc-system-health-label">Ошибки за 24 часа</span><span class="gc-system-health-value" id="gc-health-24h">—</span></div>
+      <div class="gc-system-health-metric"><span class="gc-system-health-label">Ошибки за 7 дней</span><span class="gc-system-health-value" id="gc-health-7d">—</span></div>
+    </div>
+    <div class="gc-system-health-errors">
+      <span>Всего за 90 дней: <strong class="gc-system-health-error" id="gc-health-total">—</strong></span>
+      <span>Последняя проверка: <strong class="gc-system-health-error" id="gc-health-updated">—</strong></span>
+      <span id="gc-health-latest"></span>
+    </div>
+  </section>
   <main class="main">
     <div id="panel-grabcam" class="tool-panel active" data-tool-id="grabcam"></div>
   </main>
@@ -22,6 +39,40 @@
     const panel = document.getElementById("panel-grabcam");
     const { initPanel } = await import("/grabcam/panel/js/tool-grabcam.js");
     initPanel(panel);
+
+    const ids = ["state", "uptime", "24h", "7d", "total", "updated", "latest"];
+    const health = Object.fromEntries(ids.map((id) => [id, document.getElementById("gc-health-" + id)]));
+    const refreshButton = document.getElementById("gc-health-refresh");
+    const formatUptime = (seconds) => {
+      const value = Math.max(0, Number(seconds) || 0);
+      const days = Math.floor(value / 86400), hours = Math.floor(value % 86400 / 3600);
+      const minutes = Math.floor(value % 3600 / 60), secs = Math.floor(value % 60);
+      return (days ? days + " д " : "") + hours + " ч " + minutes + " мин " + secs + " с";
+    };
+    async function refreshHealth() {
+      refreshButton.disabled = true;
+      try {
+        const response = await fetch("/api/analytics/diagnostics", { cache: "no-store" });
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        const data = await response.json();
+        health.state.textContent = "Работает";
+        health.uptime.textContent = formatUptime(data.uptime_seconds);
+        health["24h"].textContent = String(data.server_errors_24h ?? 0);
+        health["7d"].textContent = String(data.server_errors_7d ?? 0);
+        health.total.textContent = String(data.server_errors_total ?? 0);
+        health.updated.textContent = new Date().toLocaleTimeString("ru-RU");
+        const latest = Array.isArray(data.recent_errors) ? data.recent_errors[0] : null;
+        health.latest.textContent = latest ? "Последняя ошибка: HTTP " + String(latest.status_code) + " · " + String(latest.occurred_at) : "Ошибок сервера пока нет";
+      } catch (_) {
+        health.state.textContent = "Недоступен";
+        health.uptime.textContent = health["24h"].textContent = health["7d"].textContent = health.total.textContent = "—";
+        health.updated.textContent = new Date().toLocaleTimeString("ru-RU");
+        health.latest.textContent = "Не удалось получить локальную диагностику";
+      } finally { refreshButton.disabled = false; }
+    }
+    refreshButton.addEventListener("click", refreshHealth);
+    refreshHealth();
+    window.setInterval(refreshHealth, 30000);
   </script>
 </body>
 </html>
