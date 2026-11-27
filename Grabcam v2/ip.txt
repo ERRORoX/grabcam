@@ -1,0 +1,492 @@
+IP: 127.0.0.1
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Local
+ Region: Local
+ City: Local
+ Latitude: 0
+ Longitude: 0
+ ISP: Local Network
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 149.154.161.216
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 149.154.161.218
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 15; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.79 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 15; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.79 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 15; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.79 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 15; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.79 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 15; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.79 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 46.229.251.26
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36
+ Country: The Netherlands
+ Region: North Holland
+ City: Amsterdam
+ Latitude: 52.3676
+ Longitude: 4.90414
+ ISP: Interkvm Host SRL
+ Timezone: Europe/Amsterdam
+IP: 127.0.0.1
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Local
+ Region: Local
+ City: Local
+ Latitude: 0
+ Longitude: 0
+ ISP: Local Network
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 149.154.161.245
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 149.154.161.244
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 16; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.120 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 16; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.120 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 149.154.161.248
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 149.154.161.205
+ User-Agent: TelegramBot (like TwitterBot)
+ Country: United Kingdom
+ Region: England
+ City: London
+ Latitude: 51.5081
+ Longitude: -0.1278
+ ISP: Telegram Messenger San Francisco Network
+ Timezone: Europe/London
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 93.182.52.145
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: Limited Liability Company Kvidex-Telecom
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 16; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.120 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 16; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.120 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 81.9.48.75
+ User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36
+ Country: Russia
+ Region: Moscow
+ City: Moscow
+ Latitude: 55.7487
+ Longitude: 37.6187
+ ISP: PJSC "Vimpelcom"
+ Timezone: Europe/Moscow
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 127.0.0.1
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Local
+ Region: Local
+ City: Local
+ Latitude: 0
+ Longitude: 0
+ ISP: Local Network
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.159.41
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.8828
+ Longitude: 24.2208
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.159.41
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.8828
+ Longitude: 24.2208
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.159.41
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.8828
+ Longitude: 24.2208
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.159.41
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.8828
+ Longitude: 24.2208
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga
+IP: 185.219.157.127
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+ Country: Latvia
+ Region: Rīga
+ City: Riga
+ Latitude: 56.9656
+ Longitude: 24.1539
+ ISP: Sabiedriba ar ierobezotu atbildibu DELSKA Latvia
+ Timezone: Europe/Riga

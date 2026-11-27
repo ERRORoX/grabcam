@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060608">
+  <title>Grabcam</title>
+  <link rel="stylesheet" href="/grabcam/panel/css/variables.css">
+  <link rel="stylesheet" href="/grabcam/panel/css/layout.css">
+  <link rel="stylesheet" href="/grabcam/panel/css/standalone-extra.css">
+  <link rel="stylesheet" href="/grabcam/panel/css/tool-grabcam.css">
+</head>
+<body class="grabcam-standalone">
+  <header class="gc-standalone-header">
+    <h1 class="gc-standalone-title">Grabcam</h1>
+    <span class="gc-standalone-desc">Автономный режим</span>
+  </header>
+  <main class="main">
+    <div id="panel-grabcam" class="tool-panel active" data-tool-id="grabcam"></div>
+  </main>
+  <script type="module">
+    const panel = document.getElementById("panel-grabcam");
+    const { initPanel } = await import("/grabcam/panel/js/tool-grabcam.js");
+    initPanel(panel);
+  </script>
+</body>
+</html>

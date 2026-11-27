@@ -1,0 +1,16 @@
+/** Местоположения */
+#panel-grabcam .gc-widget-locations { position: relative; }
+#panel-grabcam .gc-widget-locations .gc-locations-title { margin: 0 2rem 0.5rem 0; font-size: 0.95rem; font-weight: 600; color: var(--gc-text); }
+#panel-grabcam .gc-widget-locations .gc-locations-btn-refresh { position: absolute; top: 1rem; right: 1rem; width: 28px; height: 28px; padding: 0; border: none; background: var(--gc-surface-2); color: var(--gc-muted); border-radius: var(--gc-radius-sm); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+#panel-grabcam .gc-widget-locations .gc-locations-btn-refresh:hover { color: var(--gc-text); background: var(--gc-border); }
+#panel-grabcam .gc-widget-locations .gc-locations-list { display: flex; flex-direction: column; gap: 0.5rem; min-height: 0; overflow-y: auto; }
+#panel-grabcam .gc-widget-locations .gc-locations-list.gc-locations-loading,#panel-grabcam .gc-widget-locations .gc-locations-list.gc-locations-empty,#panel-grabcam .gc-widget-locations .gc-locations-list.gc-locations-error { justify-content: center; align-items: center; color: var(--gc-muted); font-size: 0.875rem; padding: 1rem; }
+#panel-grabcam .gc-widget-locations .gc-locations-item { padding: var(--gc-space-sm) var(--gc-space-md); background: var(--gc-surface-2); border: 1px solid var(--gc-border); border-radius: var(--radius); font-size: 0.8rem; color: var(--gc-text); transition: border-color var(--transition); }
+#panel-grabcam .gc-widget-locations .gc-locations-item:hover { border-color: var(--border-focus); }
+#panel-grabcam .gc-widget-locations .gc-locations-row { margin-bottom: 2px; }
+#panel-grabcam .gc-widget-locations .gc-locations-muted { color: var(--gc-muted); }
+#panel-grabcam .gc-widget-locations .gc-locations-time { font-size: 0.7rem; color: var(--gc-muted); margin-top: 4px; }
+#panel-grabcam .gc-widget-locations .gc-locations-actions { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+#panel-grabcam .gc-widget-locations .gc-locations-btn-map { padding: 0.25rem 0.5rem; font-size: 0.75rem; background: var(--gc-surface-2); color: var(--gc-text); border: 1px solid var(--gc-border); border-radius: var(--gc-radius-sm); cursor: pointer; }
+#panel-grabcam .gc-widget-locations .gc-locations-link { font-size: 0.75rem; color: var(--gc-accent); text-decoration: none; }
+#panel-grabcam .gc-widget-locations .gc-locations-link:hover { text-decoration: underline; }

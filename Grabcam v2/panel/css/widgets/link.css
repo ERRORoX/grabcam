@@ -1,0 +1,26 @@
+/** Панель получения ссылки — размер и положение как у сводки сессии, ближе к сводке */
+#panel-grabcam .gc-widget-link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  margin-top: -28px !important;
+}
+#panel-grabcam .gc-widget-link .gc-link-box { font-family: var(--font-mono); background: var(--gc-surface-2); border-radius: var(--radius); padding: var(--gc-space-sm) var(--gc-space-md); border: 1px solid var(--gc-border); font-size: 0.8rem; min-height: 2.75rem; display: flex; align-items: center; transition: border-color var(--transition); }
+#panel-grabcam .gc-widget-link .gc-link-box:focus-within { border-color: var(--border-focus); box-shadow: 0 0 0 2px var(--accent-dim); }
+#panel-grabcam .gc-widget-link .gc-link-box .gc-link-block { width: 100%; }
+#panel-grabcam .gc-widget-link .gc-link-box .gc-link-row { display: flex; align-items: center; gap: 0.6rem; }
+#panel-grabcam .gc-widget-link .gc-link-box .gc-link-url { flex: 1; min-width: 0; font-size: 0.8rem; word-break: break-all; color: var(--gc-text); }
+#panel-grabcam .gc-widget-link .gc-link-row-wrap { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+#panel-grabcam .gc-widget-link .gc-link-box { flex: 1; min-width: 0; padding: 0.6rem 0.85rem; min-height: 2.5rem; background: var(--gc-surface-2); border-radius: var(--gc-radius-sm); border: 1px solid var(--gc-border); }
+#panel-grabcam .gc-widget-link .gc-link-box.gc-link-placeholder { color: var(--gc-muted); }
+#panel-grabcam .gc-widget-link .gc-link-box.gc-link-success { color: var(--gc-text); }
+#panel-grabcam .gc-widget-link .gc-link-box.gc-link-error { color: var(--gc-danger); }
+#panel-grabcam .gc-widget-link .gc-link-box .gc-link-url { flex: 1; min-width: 0; word-break: break-all; color: inherit; text-decoration: none; }
+#panel-grabcam .gc-widget-link .gc-link-btn-copy { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--gc-accent); color: #fff; border: none; padding: 0.4rem 0.75rem; font-size: 0.8125rem; border-radius: var(--gc-radius-sm); cursor: pointer; flex-shrink: 0; }
+#panel-grabcam .gc-widget-link .gc-link-btn-copy:hover { filter: brightness(1.1); }
+#panel-grabcam .gc-widget-link .gc-copy-icon { display: inline-block; width: 12px; height: 12px; border: 1.5px solid currentColor; border-radius: 1px; box-shadow: 2px 2px 0 0 currentColor; opacity: 0.9; }
+#panel-grabcam .gc-widget-link .gc-link-status { font-size: 0.8rem; color: var(--gc-muted); min-height: 1.3em; margin-bottom: 0.35rem; }
+#panel-grabcam .gc-widget-link .gc-link-export { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--gc-border); }
+#panel-grabcam .gc-widget-link .gc-link-btn-export { background: transparent; color: var(--gc-muted); border: 1px solid var(--gc-border); padding: 0.5rem 1rem; font-size: 0.875rem; border-radius: var(--gc-radius-sm); cursor: pointer; }
+#panel-grabcam .gc-widget-link .gc-link-btn-export:hover { color: var(--gc-text); border-color: var(--gc-muted); }
