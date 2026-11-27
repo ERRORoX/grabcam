@@ -1,0 +1,3 @@
+# Python dependencies for the Grabcam Flask launcher.
+# The remaining imports used by the launcher are from the Python standard library.
+Flask>=3.0,<4.0
