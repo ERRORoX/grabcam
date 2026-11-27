@@ -74,6 +74,14 @@ def summary() -> dict[str, Any]:
             "SELECT COUNT(*) FROM server_errors "
             "WHERE occurred_at >= datetime('now', '-7 days')"
         ).fetchone()[0]
+        by_status = conn.execute(
+            "SELECT status_code, COUNT(*) AS count FROM server_errors "
+            "GROUP BY status_code ORDER BY status_code"
+        ).fetchall()
+        by_endpoint = conn.execute(
+            "SELECT endpoint, COUNT(*) AS count FROM server_errors "
+            "GROUP BY endpoint ORDER BY count DESC LIMIT 10"
+        ).fetchall()
         recent = conn.execute(
             "SELECT occurred_at, endpoint, status_code FROM server_errors "
             "ORDER BY id DESC LIMIT 20"
@@ -84,6 +92,14 @@ def summary() -> dict[str, Any]:
         "server_errors_total": int(total),
         "server_errors_24h": int(last_24h),
         "server_errors_7d": int(last_7d),
+        "errors_by_status": [
+            {"status_code": int(row["status_code"]), "count": int(row["count"])}
+            for row in by_status
+        ],
+        "errors_by_endpoint": [
+            {"endpoint": row["endpoint"], "count": int(row["count"])}
+            for row in by_endpoint
+        ],
         "recent_errors": [dict(row) for row in recent],
         "privacy": {
             "stores_ip_addresses": False,
