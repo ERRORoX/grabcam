@@ -3,8 +3,6 @@
  */
 export const state = {
   sessionStartTime: 0,
-  lastTargets: 0,
-  lastUniqueIPs: 0,
   lastLinkUrl: "",
   lastPhotosKey: "",
   lastLocationsKey: "",
