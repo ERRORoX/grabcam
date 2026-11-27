@@ -16,6 +16,7 @@ _STANDALONE_DIR = os.path.dirname(os.path.abspath(__file__))
 _GRABCAM_DIR = os.path.dirname(_STANDALONE_DIR)
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(_GRABCAM_DIR))
 
+sys.path.insert(0, _GRABCAM_DIR)
 sys.path.insert(0, _PROJECT_ROOT)
 sys.path.insert(0, os.path.join(_PROJECT_ROOT, "backend"))
 
