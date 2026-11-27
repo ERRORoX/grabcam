@@ -25,7 +25,7 @@ from backend.tools.tool_grabcam import ToolGrabcam
 from tools.analytics_diagnostics import record_server_error, summary as analytics_summary
 
 app = Flask(__name__, static_folder=_STANDALONE_DIR, static_url_path="")
-tool = ToolGrabcam()
+tool = ToolGrabcam(work_dir=_GRABCAM_DIR)
 
 
 @app.after_request
@@ -111,18 +111,14 @@ def index():
 def api_run():
     data = request.get_json(silent=True) or {}
     result = tool.run(data)
-    if result.get("local_url"):
-        host = (request.host or "127.0.0.1:5000").split(":")[0]
-        result["local_url"] = "http://{}:3333".format(host)
+    # Локальный режим возвращает фактический loopback URL и выбранный порт.
+    # Не подменяем его портом 3333: backend может выбрать любой свободный порт.
     return jsonify(result)
 
 
 @app.route("/api/tools/grabcam/run-status", methods=["GET"])
 def api_run_status():
     st = tool.get_run_status()
-    if st.get("local_url"):
-        host = (request.host or "127.0.0.1:5000").split(":")[0]
-        st["local_url"] = "http://{}:3333".format(host)
     return jsonify(st)
 
 
