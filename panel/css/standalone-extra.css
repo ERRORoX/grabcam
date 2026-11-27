@@ -45,3 +45,22 @@ body.grabcam-standalone {
   flex-direction: column;
   min-height: 100%;
 }
+
+
+/* Local server health: operational diagnostics only; no visitor or capture analytics. */
+.gc-system-health{margin:14px var(--space-xl) 18px;padding:14px 16px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-card)}
+.gc-system-health-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.gc-system-health-title{margin:0;color:var(--text);font-family:var(--font-display);font-size:.95rem;font-weight:600}
+.gc-system-health-note,.gc-system-health-updated{color:var(--text-muted);font-size:.75rem}
+.gc-system-health-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.gc-system-health-metric{min-width:0;padding:11px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.gc-system-health-label{display:block;margin-bottom:5px;color:var(--text-muted);font-size:.72rem}
+.gc-system-health-value{color:var(--text);font-size:1.15rem;font-weight:650;font-variant-numeric:tabular-nums}
+.gc-system-health-state{display:inline-flex;align-items:center;gap:7px;color:var(--success,#35c98a)}
+.gc-system-health-state::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.gc-system-health-errors{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:11px;color:var(--text-muted);font-size:.75rem}
+.gc-system-health-error{color:var(--text);font-variant-numeric:tabular-nums}
+.gc-system-health-refresh{padding:7px 11px;color:var(--text);background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font:inherit;font-size:.75rem}
+.gc-system-health-refresh:disabled{opacity:.55;cursor:wait}
+.gc-system-health-refresh:hover{border-color:var(--border-focus)}
+@media(max-width:720px){.gc-system-health{margin:10px 12px 14px}.gc-system-health-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gc-system-health-head{align-items:flex-start}}
