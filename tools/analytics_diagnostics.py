@@ -48,7 +48,7 @@ def initialize() -> None:
 def record_server_error(endpoint: str | None, status_code: int) -> None:
     """Store only an endpoint name and HTTP status; never store request data."""
     safe_endpoint = (endpoint or "unknown").split(".", 1)[0][:80]
-    occurred_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    occurred_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     with _LOCK, _connect() as conn:
         conn.execute(
             "INSERT INTO server_errors(occurred_at, endpoint, status_code) "
@@ -88,7 +88,7 @@ def summary() -> dict[str, Any]:
         ).fetchall()
     return {
         "uptime_seconds": max(0, int(now - _STARTED_AT)),
-        "started_at_utc": datetime.fromtimestamp(_STARTED_AT, timezone.utc).isoformat(timespec="seconds"),
+        "started_at_utc": datetime.fromtimestamp(_STARTED_AT, timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
         "server_errors_total": int(total),
         "server_errors_24h": int(last_24h),
         "server_errors_7d": int(last_7d),
