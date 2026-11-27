@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Grabcam — Обновление</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070e1a;
+      --panel: #0c1628;
+      --panel-2: #101e34;
+      --line: #20334f;
+      --text: #e8f0fb;
+      --muted: #91a4bf;
+      --blue: #368cff;
+      --blue-hover: #57a0ff;
+      --green: #35c98b;
+      --red: #ff6c79;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 32px 18px;
+      background: radial-gradient(ellipse at 50% -20%, #14294a 0, var(--bg) 58%);
+      color: var(--text); font: 14px/1.5 Inter, system-ui, -apple-system, sans-serif;
+    }
+    main { width: min(760px, 100%); margin: 5vh auto 0; }
+    header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .logo {
+      display: grid; place-items: center; width: 46px; height: 46px;
+      border: 1px solid #2e5c91; border-radius: 13px;
+      color: #8fc2ff; background: #102743; font-size: 21px; font-weight: 800;
+    }
+    h1 { margin: 0; font-size: 22px; letter-spacing: .2px; }
+    .subtitle { color: var(--muted); margin-top: 2px; }
+    .panel {
+      background: linear-gradient(160deg, rgba(16,30,52,.98), rgba(10,20,36,.98));
+      border: 1px solid var(--line); border-radius: 16px; padding: 24px;
+      box-shadow: 0 20px 70px #0007;
+    }
+    .section-title { margin: 0 0 5px; font-size: 16px; }
+    .hint { margin: 0; color: var(--muted); }
+    .status {
+      display: flex; align-items: center; gap: 10px; margin: 22px 0;
+      padding: 13px 14px; border: 1px solid var(--line);
+      background: #091425; border-radius: 10px; color: var(--muted);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #74869e; flex: 0 0 auto; }
+    .status.ok .dot { background: var(--green); box-shadow: 0 0 12px #35c98b88; }
+    .status.error .dot { background: var(--red); }
+    .status.busy .dot { background: var(--blue); box-shadow: 0 0 12px #368cffaa; }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 22px; }
+    .meta-card { min-width: 0; padding: 12px; border-radius: 10px; background: #091425; border: 1px solid #1b2c45; }
+    .meta-card span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 5px; }
+    .meta-card strong { display: block; overflow-wrap: anywhere; font: 600 13px ui-monospace, monospace; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    button {
+      border: 1px solid transparent; border-radius: 9px; padding: 11px 17px;
+      background: var(--blue); color: white; cursor: pointer;
+      font: 650 14px system-ui, sans-serif; transition: .15s ease;
+    }
+    button:hover:not(:disabled) { background: var(--blue-hover); transform: translateY(-1px); }
+    button.secondary { background: #172842; border-color: #2a4262; color: #dceaff; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .result {
+      display: none; margin-top: 18px; padding: 14px; border-radius: 10px;
+      background: #091425; border: 1px solid var(--line); white-space: pre-wrap;
+      overflow-wrap: anywhere; color: #c6d6ea;
+    }
+    .result.visible { display: block; }
+    .restart { color: #ffd18a; }
+    footer { margin: 17px 3px 0; color: #71849e; font-size: 12px; }
+    @media (max-width: 520px) {
+      body { padding: 22px 13px; }
+      .panel { padding: 17px; }
+      .meta { grid-template-columns: 1fr; }
+      .actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="logo">G</div>
+      <div>
+        <h1>Grabcam — Обновление</h1>
+        <div class="subtitle">Локальный центр управления обновлениями</div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <h2 class="section-title">Состояние проекта</h2>
+      <p class="hint">Проверка версии в GitHub и установка разрешённых обновлений из ветки Grabcam-V3.</p>
+
+      <div id="status" class="status">
+        <span class="dot"></span>
+        <span id="statusText">Нажмите «Проверить обновления».</span>
+      </div>
+
+      <div class="meta">
+        <div class="meta-card"><span>Ветка</span><strong id="branch">—</strong></div>
+        <div class="meta-card"><span>Коммитов доступно</span><strong id="behind">—</strong></div>
+        <div class="meta-card"><span>Установленный коммит</span><strong id="current">—</strong></div>
+        <div class="meta-card"><span>Последний коммит GitHub</span><strong id="remote">—</strong></div>
+      </div>
+
+      <div class="actions">
+        <button id="checkBtn" class="secondary" type="button">Проверить обновления</button>
+        <button id="updateBtn" type="button" disabled>Обновить проект</button>
+      </div>
+
+      <pre id="result" class="result" aria-live="polite"></pre>
+    </section>
+
+    <footer>Updater работает только на этом компьютере (127.0.0.1). Перед обновлением создаётся резервная Git-ветка.</footer>
+  </main>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const statusBox = el("status");
+    const statusText = el("statusText");
+    const checkBtn = el("checkBtn");
+    const updateBtn = el("updateBtn");
+    const resultBox = el("result");
+    let updateAvailable = false;
+    let busy = false;
+
+    function setStatus(message, kind = "") {
+      statusBox.className = "status " + kind;
+      statusText.textContent = message;
+    }
+    function showResult(value) {
+      resultBox.textContent = typeof value === "string"
+        ? value : JSON.stringify(value, null, 2);
+      resultBox.classList.add("visible");
+    }
+    function setBusy(value) {
+      busy = value;
+      checkBtn.disabled = value;
+      updateBtn.disabled = value || !updateAvailable;
+      checkBtn.textContent = value ? "Выполняется…" : "Проверить обновления";
+    }
+    function shortSha(value) {
+      return value ? String(value).slice(0, 12) : "—";
+    }
+
+    async function checkUpdates() {
+      if (busy) return;
+      setBusy(true);
+      setStatus("Проверяю GitHub и локальную версию…", "busy");
+      resultBox.classList.remove("visible");
+      try {
+        const response = await fetch("/api/status", { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Не удалось проверить обновления.");
+        el("branch").textContent = data.branch || "—";
+        el("behind").textContent = data.commits_behind ?? "—";
+        el("current").textContent = shortSha(data.current_commit);
+        el("remote").textContent = shortSha(data.remote_commit);
+        updateAvailable = Boolean(data.update_available);
+        updateBtn.disabled = !updateAvailable;
+        setStatus(
+          updateAvailable
+            ? "Доступны обновления. Нажмите «Обновить проект»."
+            : "Установлена последняя доступная версия.",
+          "ok"
+        );
+        showResult(data);
+      } catch (error) {
+        updateAvailable = false;
+        updateBtn.disabled = true;
+        setStatus(error.message, "error");
+        showResult({ error: error.message });
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function updateProject() {
+      if (busy || !updateAvailable) return;
+      setBusy(true);
+      setStatus("Создаю резервную точку и выполняю обновление…", "busy");
+      resultBox.classList.remove("visible");
+      try {
+        const response = await fetch("/api/update", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}"
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Обновление завершилось ошибкой.");
+        updateAvailable = false;
+        updateBtn.disabled = true;
+        const needsRestart = Boolean(data.restart_required);
+        setStatus(
+          needsRestart
+            ? "Обновление установлено. Перезапустите приложение Grabcam."
+            : (data.message || "Обновление не требуется."),
+          "ok"
+        );
+        showResult(data);
+      } catch (error) {
+        setStatus(error.message, "error");
+        showResult({ error: error.message });
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    checkBtn.addEventListener("click", checkUpdates);
+    updateBtn.addEventListener("click", updateProject);
+  </script>
+</body>
+</html>
