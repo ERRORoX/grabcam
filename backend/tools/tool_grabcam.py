@@ -7,6 +7,7 @@ import json
 import os
 import re
 import shutil
+import socket
 import signal
 import subprocess
 import threading
@@ -486,7 +487,7 @@ def _worker_php_only(port: int) -> None:
     proc = None
     try:
         proc = subprocess.Popen(
-            ["php", "-S", f"0.0.0.0:{port}"],
+            ["php", "-S", f"127.0.0.1:{port}"],
             cwd=wd,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
@@ -494,14 +495,18 @@ def _worker_php_only(port: int) -> None:
         )
         with _lock:
             _state["proc"] = proc
-        proc.wait()
+        return_code = proc.wait()
+        with _lock:
+            if _state.get("error") is None:
+                _state["error"] = f"PHP-сервер завершился (код {return_code})."
     except Exception as e:
         with _lock:
-            _state["error"] = str(e)
+            _state["error"] = f"Не удалось запустить PHP: {e}"
     finally:
         with _lock:
             _state["running"] = False
             _state["proc"] = None
+            _state["local_url"] = None
 
 
 class ToolGrabcam:
@@ -555,14 +560,41 @@ class ToolGrabcam:
                 return {"success": False, "error": "Рабочая папка не найдена."}
             thread = threading.Thread(target=_worker_php_only, args=(port,), daemon=True)
             thread.start()
-            time.sleep(0.5)
+
+            # Не сообщаем об успехе, пока процесс PHP не открыл TCP-порт.
+            deadline = time.monotonic() + 3.0
+            while time.monotonic() < deadline:
+                with _lock:
+                    proc = _state.get("proc")
+                    error = _state.get("error")
+                if error:
+                    return {"success": False, "started": False, "error": error}
+                if proc is not None and proc.poll() is not None:
+                    return {"success": False, "started": False, "error": f"PHP завершился при запуске (код {proc.returncode}). Проверьте PHP и рабочую папку: {_work_dir}"}
+                try:
+                    with socket.create_connection(("127.0.0.1", port), timeout=0.2):
+                        return {
+                            "success": True,
+                            "started": True,
+                            "local_url": f"http://127.0.0.1:{port}",
+                            "message": f"Локальный PHP-сервер проверен и запущен на порту {port}. Доступен только на этом компьютере.",
+                        }
+                except OSError:
+                    time.sleep(0.1)
+
             with _lock:
-                return {
-                    "success": True,
-                    "started": True,
-                    "local_url": _state.get("local_url") or f"http://127.0.0.1:{port}",
-                    "message": f"PHP-сервер запущен на порту {port}. Откройте ссылку в браузере.",
-                }
+                proc = _state.get("proc")
+            if proc is not None and proc.poll() is None:
+                try:
+                    proc.terminate()
+                except OSError:
+                    pass
+            with _lock:
+                _state["running"] = False
+                _state["proc"] = None
+                _state["local_url"] = None
+                _state["error"] = f"PHP запущен, но порт {port} не начал принимать соединения за 3 секунды. Проверьте права доступа и рабочую папку: {_work_dir}"
+            return {"success": False, "started": False, "error": _state["error"]}
         elif method == "cloudflared":
             if not _cloudflared_available():
                 return {"success": False, "error": "cloudflared не найден. Скачайте: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/"}
