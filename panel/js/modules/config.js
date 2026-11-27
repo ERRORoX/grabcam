@@ -10,7 +10,7 @@ export const MAX_SPAN = 4;
 export const API = {
   options: "/api/tools/grabcam/options",
   runStatus: "/api/tools/grabcam/run-status",
-  sessionStats: "/api/tools/grabcam/session-stats",
+  diagnostics: "/api/analytics/diagnostics",
   stop: "/api/tools/grabcam/stop",
   photos: "/api/tools/grabcam/photos",
   locations: "/api/tools/grabcam/locations",
