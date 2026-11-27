@@ -126,28 +126,6 @@ def api_run_status():
     return jsonify(st)
 
 
-@app.route("/api/tools/grabcam/session-stats", methods=["GET"])
-def api_session_stats():
-    unique_ips = set()
-    if os.path.isdir(_GRABCAM_PHOTO_DIR):
-        for name in os.listdir(_GRABCAM_PHOTO_DIR):
-            sub = os.path.join(_GRABCAM_PHOTO_DIR, name)
-            if os.path.isdir(sub) and ".." not in name and name.strip():
-                unique_ips.add(name.strip())
-    if os.path.isfile(_GRABCAM_FORM_FILE):
-        try:
-            with open(_GRABCAM_FORM_FILE, "r", encoding="utf-8", errors="replace") as f:
-                data = json.load(f)
-            for c in (data.get("captures") or []):
-                ip = (c.get("ip") or "").strip()
-                if ip:
-                    unique_ips.add(ip)
-        except (OSError, ValueError):
-            pass
-    n = len(unique_ips)
-    return jsonify({"unique_ips": n, "targets": n})
-
-
 @app.route("/api/tools/grabcam/stop", methods=["POST"])
 def api_stop():
     ok, msg = tool.stop_run()
