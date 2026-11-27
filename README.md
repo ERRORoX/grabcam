@@ -12,10 +12,7 @@
 
 ---
 
-**Автор оригинальной версии:** N17R0  
-**Автор v1.1:** Noob Hackers  
-**Автор модификации v1.2:** ERRORoX  
-**Основан на:** saycheese и Noob Hackers
+**Автор инструмента:** ERRORoX
 
 </div>
 
@@ -67,8 +64,8 @@
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/ERRORoX/grabcam.git
-cd grabcam
+git clone https://github.com/yourusername/camera-phishing-tool.git
+cd camera-phishing-tool
 
 # Сделать скрипт исполняемым
 chmod +x grabcam.sh
@@ -144,26 +141,90 @@ Photo/
 
 ---
 
+## 🚀 Запуск только Grabcam (без OSINT Panel)
+
+Чтобы запустить **только Grabcam** (удобно для передачи одного инструмента другому пользователю):
+
+```bash
+cd tools/grabcam
+python3 run_standalone.py
+```
+
+Откройте в браузере: **http://127.0.0.1:5050**
+
+Остановка: `Ctrl+C` в терминале.
+
+Папку `tools/grabcam` можно целиком скопировать и передать; для автономного запуска нужна структура проекта с папкой `backend` на уровень выше (см. `standalone/README.md`), либо развернуть из корня репозитория.
+
+---
+
 ## 📁 Структура проекта
 
+Вся логика и ресурсы Grabcam в этой директории (модульно: каждая карточка и функция — свой файл).
+
 ```
-camera-phishing-tool/
-├── grabcam.sh              # Основной скрипт
-├── grabcam.html            # HTML шаблон по умолчанию
-├── post.php                # Обработчик фотографий
-├── location.php            # Обработчик геолокации
-├── ip.php                  # Обработчик IP адресов
-├── Photo/                  # Директория для сохранения фото
-├── logs_photos.log         # Лог фотографий
-├── logs_location.log       # Лог геолокации
-├── activity.log            # Общий лог активности
-├── README.md               # Этот файл
-├── LICENSE                 # Лицензия
-└── docs/                   # Дополнительная документация
-    ├── КАК_ДОБАВИТЬ_HTML.md
-    ├── ТРЕБОВАНИЯ_К_HTML.md
-    └── УЛУЧШЕНИЯ.md
+tools/grabcam/
+├── run_standalone.py       # Запуск Grabcam без OSINT Panel (порт 5050)
+├── standalone/             # Автономное веб-приложение
+│   ├── app.py              # Flask: API и раздача панели
+│   ├── index.html
+│   └── js/                 # Заглушки для /js/app.js и /js/tools/
+├── panel/                  # Панель (CSS и JS модули)
+│   ├── js/
+│   │   ├── tool-grabcam.js       # Точка входа (сборка модулей)
+│   │   ├── grabcam-layout.config.js
+│   │   └── modules/
+│   │       ├── config.js         # API, лимиты, интервалы
+│   │       ├── utils.js          # escapeHtml, copy, render, loadLeaflet
+│   │       ├── state.js          # Общее состояние панели
+│   │       ├── layout.js        # Сетка и buildPanelHTML
+│   │       ├── features/        # Один файл = одна карточка/функция
+│   │       │   ├── index.js
+│   │       │   ├── session.js   # Сводка сессии (длительность, цели, IP)
+│   │       │   ├── control.js   # Запуск/остановка, ссылка, опции
+│   │       │   ├── link.js      # Копирование, экспорт
+│   │       │   ├── map.js       # Карта (показать точку, очистить)
+│   │       │   ├── photos.js    # Загрузка фото
+│   │       │   ├── locations.js # Список местоположений
+│   │       │   ├── forms.js     # Захваты форм
+│   │       │   ├── screen.js    # Захват экрана
+│   │       │   ├── audio.js     # Аудио
+│   │       │   └── summary.js   # Текстовая сводка
+│   │       └── widgets/         # HTML разметка карточек
+│   │           ├── index.js
+│   │           ├── control.js, summary.js, link.js, map.js, ...
+│   └── css/
+│       ├── tool-grabcam.css     # Точка входа (@import остальных)
+│       ├── base.css             # Переменные, сетка, общие карточки
+│       ├── shared.css           # Кнопки, переключатели, списки
+│       ├── standalone-extra.css # Стили автономной страницы
+│       ├── widgets/             # Один файл = одна карточка
+│       │   ├── control.css, summary.css, link.css, map.css,
+│       │   ├── photos.css, locations.css, forms.css,
+│       │   ├── screen.css, audio.css, summary-text.css
+│       └── README.md
+├── grabcam.sh              # Скрипт (Serveo/Ngrok, PHP)
+├── grabcam.html            # Страница-ловушка (камера, гео, форма)
+├── index.php, log.php, post.php, location.php, audio.php, ip.php, template.php  # PHP-сервер приёма данных
+├── options.json            # Опции (камера, гео, форма и т.д.)
+├── form_captures.json
+├── Photo/                  # Сохранённые фото по IP
+├── docs/
+│   └── AUTHORS.md
+└── README.md
 ```
+
+**Python backend** инструмента (запуск PHP, туннели, API) находится в корне проекта: `backend/tools/tool_grabcam.py` — он подхватывается OSINT Panel и использует папку `tools/grabcam/` как рабочую директорию.
+
+### Идеи по порядку в директории
+
+При желании можно дополнительно разнести файлы так:
+
+- **`server/`** — все PHP-скрипты (`index.php`, `log.php`, `post.php`, `location.php`, `audio.php`, `ip.php`, `template.php`). Тогда в backend и в `grabcam.sh` нужно указать корень документа PHP как `tools/grabcam/server` и поправить пути к `Photo/`, `options.json` в PHP (например `__DIR__ . '/../Photo'`).
+- **`page/`** — страница-ловушка `grabcam.html`, чтобы явно отделить её от панели и серверных скриптов.
+- **`data/`** — рабочие файлы (`options.json`, `form_captures.json`, `Photo/`, `ip.txt` и т.п.), чтобы не смешивать их с кодом. Потребуется обновить пути в backend и в PHP.
+
+Сейчас PHP и данные лежат в корне `tools/grabcam/`, чтобы не менять backend и скрипты; при необходимости перенос можно сделать по шагам с обновлением путей.
 
 ---
 
@@ -318,8 +379,7 @@ php -S 127.0.0.1:3333
 
 **⭐ Если этот проект был полезен, поставьте звезду! ⭐**
 
-Made with ❤️ by ERRORoX  
-Based on work by N17R0
+Made with ❤️ by ERRORoX
 
 </div>
 

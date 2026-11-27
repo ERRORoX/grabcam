@@ -1,0 +1,111 @@
+/**
+ * Карточка: Аудио.
+ */
+
+#panel-grabcam .gc-widget-audio {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gc-text);
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-btn-refresh {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8125rem;
+  background: var(--gc-surface-2);
+  color: var(--gc-text);
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-btn-refresh:hover {
+  background: var(--gc-border);
+  color: var(--gc-text);
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 160px;
+  max-height: 260px;
+  overflow-y: auto;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gc-border) transparent;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list::-webkit-scrollbar-thumb {
+  background: var(--gc-border);
+  border-radius: 3px;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list::-webkit-scrollbar-thumb:hover {
+  background: var(--border-focus);
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list.gc-audio-loading,
+#panel-grabcam .gc-widget-audio .gc-audio-list.gc-audio-empty,
+#panel-grabcam .gc-widget-audio .gc-audio-list.gc-audio-error {
+  justify-content: center;
+  align-items: center;
+  color: var(--gc-muted);
+  font-size: 0.875rem;
+  padding: 1rem;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-list .gc-retry {
+  margin-top: 0.25rem;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-item {
+  padding: 0.6rem 0.85rem;
+  background: var(--gc-surface-2);
+  border: 1px solid var(--gc-border);
+  border-radius: var(--gc-radius);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-item:hover {
+  border-color: var(--border-focus);
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-item audio {
+  width: 100%;
+  max-width: 100%;
+  height: 36px;
+  border-radius: var(--gc-radius-sm);
+}
+
+#panel-grabcam .gc-widget-audio .gc-audio-meta {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--gc-muted);
+  margin-top: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}

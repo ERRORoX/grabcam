@@ -1,0 +1,47 @@
+/* Только разметка автономной страницы. Переменные и .main — из /css/variables.css и /css/layout.css (общие с OSINT Panel). */
+/* Чтобы вид совпадал с полной панелью: тот же масштаб и поведение контента. */
+html:has(body.grabcam-standalone) {
+  zoom: 0.75;
+}
+body.grabcam-standalone {
+  margin: 0;
+  background: var(--bg-page);
+  background-image: var(--bg-page-mesh);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.grabcam-standalone .main {
+  min-height: 0;
+}
+
+.gc-standalone-header {
+  flex-shrink: 0;
+  padding: 12px var(--space-xl);
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gc-standalone-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.gc-standalone-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.grabcam-standalone .main .tool-panel.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}

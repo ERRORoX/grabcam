@@ -1,2 +1,3 @@
 Pseudo-terminal will not be allocated because stdin is not a terminal.
-ssh: connect to host serveo.net port 22: Connection refused
+[32mForwarding HTTP traffic from https://41b6ad10d7cce85d-93-182-52-145.serveousercontent.com
+[0mTimeout, server serveo.net not responding.
