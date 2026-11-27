@@ -10,7 +10,8 @@ import json
 import os
 import sys
 import zipfile
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
+import ipaddress
 
 _STANDALONE_DIR = os.path.dirname(os.path.abspath(__file__))
 _GRABCAM_DIR = os.path.dirname(_STANDALONE_DIR)
@@ -37,6 +38,10 @@ def _record_server_diagnostics(response):
             record_server_error(request.endpoint, response.status_code)
         except Exception:
             pass
+    if request.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "no-referrer"
     return response
 
 
@@ -53,6 +58,36 @@ def api_analytics_diagnostics():
     ):
         return jsonify({"error": "Недопустимый источник запроса."}), 403
     return jsonify(analytics_summary())
+
+
+def _is_local_origin(origin):
+    """Accept only same-machine browser origins for the local management API."""
+    if not origin:
+        return True
+    try:
+        parsed = urlsplit(origin)
+        hostname = (parsed.hostname or "").lower()
+    except ValueError:
+        return False
+    return parsed.scheme in ("http", "https") and hostname in ("127.0.0.1", "localhost", "::1")
+
+
+@app.before_request
+def _protect_management_api():
+    """Keep management and stored test data private to this computer."""
+    if not request.path.startswith("/api/"):
+        return None
+    try:
+        remote_ip = ipaddress.ip_address(request.remote_addr or "")
+        if getattr(remote_ip, "ipv4_mapped", None) is not None:
+            remote_ip = remote_ip.ipv4_mapped
+    except ValueError:
+        return jsonify({"error": "Не удалось проверить адрес клиента."}), 403
+    if not remote_ip.is_loopback:
+        return jsonify({"error": "API управления доступен только с этого компьютера."}), 403
+    if not _is_local_origin(request.headers.get("Origin")):
+        return jsonify({"error": "Запрос с внешнего источника отклонён."}), 403
+    return None
 
 _GRABCAM_PHOTO_DIR = os.path.join(_GRABCAM_DIR, "Photo")
 _GRABCAM_FORM_FILE = os.path.join(_GRABCAM_DIR, "form_captures.json")
@@ -317,4 +352,4 @@ def grabcam_panel_static(path):
 if __name__ == "__main__":
     print("Grabcam (автономный режим). Откройте http://127.0.0.1:5050")
     print("Выход: Ctrl+C")
-    app.run(host="0.0.0.0", port=5050, debug=False)
+    app.run(host="127.0.0.1", port=5050, debug=False)
