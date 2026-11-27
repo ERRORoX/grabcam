@@ -475,6 +475,18 @@ def _worker_cloudflared() -> None:
                     pass
 
 
+def _read_php_startup_error(work_dir: str) -> Optional[str]:
+    """Return the last PHP server log lines for local startup diagnostics."""
+    log_path = os.path.join(work_dir, ".grabcam-php.log")
+    try:
+        with open(log_path, "r", encoding="utf-8", errors="replace") as log:
+            lines = log.readlines()[-8:]
+        message = "".join(lines).strip()
+        return message[-1200:] if message else None
+    except OSError:
+        return None
+
+
 def _worker_php_only(port: int) -> None:
     wd = _get_work_dir()
     with _lock:
@@ -486,19 +498,25 @@ def _worker_php_only(port: int) -> None:
         _state["started_at"] = time.time()
     proc = None
     try:
-        proc = subprocess.Popen(
-            ["php", "-S", f"127.0.0.1:{port}"],
-            cwd=wd,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            start_new_session=True,
-        )
+        log_path = os.path.join(wd, ".grabcam-php.log")
+        with open(log_path, "a", encoding="utf-8") as php_log:
+            proc = subprocess.Popen(
+                ["php", "-S", f"127.0.0.1:{port}"],
+                cwd=wd,
+                stdout=php_log,
+                stderr=subprocess.STDOUT,
+                start_new_session=True,
+            )
         with _lock:
             _state["proc"] = proc
         return_code = proc.wait()
+        detail = _read_php_startup_error(wd)
         with _lock:
             if _state.get("error") is None:
-                _state["error"] = f"PHP-сервер завершился (код {return_code})."
+                _state["error"] = (
+                    f"PHP-сервер завершился (код {return_code})."
+                    + (f" Подробности: {detail}" if detail else "")
+                )
     except Exception as e:
         with _lock:
             _state["error"] = f"Не удалось запустить PHP: {e}"
@@ -570,7 +588,17 @@ class ToolGrabcam:
                 if error:
                     return {"success": False, "started": False, "error": error}
                 if proc is not None and proc.poll() is not None:
-                    return {"success": False, "started": False, "error": f"PHP завершился при запуске (код {proc.returncode}). Проверьте PHP и рабочую папку: {_work_dir}"}
+                    detail = _read_php_startup_error(_work_dir)
+                    message = f"PHP завершился при запуске (код {proc.returncode})."
+                    if detail:
+                        message += f" Подробности: {detail}"
+                    message += f" Рабочая папка: {_work_dir}"
+                    with _lock:
+                        _state["running"] = False
+                        _state["proc"] = None
+                        _state["local_url"] = None
+                        _state["error"] = message
+                    return {"success": False, "started": False, "error": message}
                 try:
                     with socket.create_connection(("127.0.0.1", port), timeout=0.2):
                         return {
